@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "text": "Welches Protokoll wird typischerweise für die sichere Übertragung von Web‑Daten verwendet?",
+    "choices": [
+      {"id": "A", "text": "HTTP", "isCorrect": false, "explanation": "HTTP überträgt Daten unverschlüsselt und ist daher nicht sicher."},
+      {"id": "B", "text": "HTTPS", "isCorrect": true, "explanation": "HTTPS verwendet TLS/SSL, um Web‑Daten zu verschlüsseln und zu schützen."},
+      {"id": "C", "text": "FTP", "isCorrect": false, "explanation": "FTP überträgt Daten meist unverschlüsselt; sichere Varianten sind SFTP/FTPS."},
+      {"id": "D", "text": "Telnet", "isCorrect": false, "explanation": "Telnet sendet Daten und Anmeldedaten unverschlüsselt und gilt als unsicher."}
+    ],
+    "category": "Netzwerksicherheit",
+    "tags": ["TLS","HTTPS"]
+  },
+  {
+    "id": 2,
+    "text": "Was ist das primäre Ziel einer Firewall?",
+    "choices": [
+      {"id": "A", "text": "Viren entfernen", "isCorrect": false, "explanation": "Viren werden von Antiviren‑Software entfernt; Firewalls kontrollieren Netzwerkzugriff."},
+      {"id": "B", "text": "Netzwerkzugriff basierend auf Regeln kontrollieren", "isCorrect": true, "explanation": "Firewalls regulieren den ein‑ und ausgehenden Datenverkehr nach definierten Regeln."},
+      {"id": "C", "text": "Passwörter speichern", "isCorrect": false, "explanation": "Passwortverwaltung ist Aufgabe von Passwortmanagern, nicht Firewalls."},
+      {"id": "D", "text": "Backups erstellen", "isCorrect": false, "explanation": "Backups sind Aufgabe der Sicherungssoftware/Strategie."}
+    ],
+    "category": "Netzwerksicherheit",
+    "tags": ["Firewall","Zugriffskontrolle"]
+  },
+  {
+    "id": 3,
+    "text": "Welcher Begriff beschreibt eine Sicherheitslücke, die schon vor der Veröffentlichung einer Gegenmaßnahme bekannt ist?",
+    "choices": [
+      {"id": "A", "text": "Zero‑Day", "isCorrect": true, "explanation": "Zero‑Day bezeichnet eine Verwundbarkeit, für die noch kein Patch verfügbar ist."},
+      {"id": "B", "text": "Backdoor", "isCorrect": false, "explanation": "Backdoor ist ein geheimer Zugangspunkt zu einem System."},
+      {"id": "C", "text": "Rootkit", "isCorrect": false, "explanation": "Rootkits ermöglichen dauerhaften, versteckten Zugriff auf ein System."},
+      {"id": "D", "text": "Botnet", "isCorrect": false, "explanation": "Ein Botnet ist ein Netzwerk kompromittierter Geräte."}
+    ],
+    "category": "Bedrohungsarten",
+    "tags": ["Vulnerabilities","Zero-Day"]
+  },
+  {
+    "id": 4,
+    "text": "Welche Maßnahme reduziert das Risiko durch gestohlene Passwörter am effektivsten?",
+    "choices": [
+      {"id": "A", "text": "Längere Passwörter erzwingen", "isCorrect": false, "explanation": "Längere Passwörter helfen, aber Multi‑Factor Authentication bietet stärkeren Schutz."},
+      {"id": "B", "text": "Multi‑Factor Authentication (MFA) nutzen", "isCorrect": true, "explanation": "MFA verlangt mehrere Faktoren und schützt auch, wenn das Passwort kompromittiert ist."},
+      {"id": "C", "text": "Passwörter im Browser speichern", "isCorrect": false, "explanation": "Das Speichern im Browser kann praktisch, aber weniger sicher sein als ein Manager mit MFA."},
+      {"id": "D", "text": "Regelmäßig Passwörter per E‑Mail versenden", "isCorrect": false, "explanation": "Passwörter per E‑Mail zu senden ist unsicher und sollte vermieden werden."}
+    ],
+    "category": "Identitäts- und Zugriffsmanagement",
+    "tags": ["MFA","Passwörter"]
+  },
+  {
+    "id": 5,
+    "text": "Was beschreibt am besten Social Engineering?",
+    "choices": [
+      {"id": "A", "text": "Technische Schwachstellen in Software ausnutzen", "isCorrect": false, "explanation": "Das ist eher ein Exploit; Social Engineering nutzt menschliche Schwächen."},
+      {"id": "B", "text": "Menschen manipulieren, um vertrauliche Informationen preiszugeben", "isCorrect": true, "explanation": "Social Engineering zielt auf Vertrauen und menschliche Fehler ab."},
+      {"id": "C", "text": "Netzwerkverkehr verschlüsseln", "isCorrect": false, "explanation": "Verschlüsselung schützt Daten, ist aber kein Social Engineering."},
+      {"id": "D", "text": "Backups prüfen", "isCorrect": false, "explanation": "Backups sind wichtig, haben aber nichts mit Social Engineering zu tun."}
+    ],
+    "category": "Social Engineering",
+    "tags": ["Phishing","Awareness"]
+  },
+  {
+    "id": 6,
+    "text": "Welches Verfahren sorgt dafür, dass Daten während der Übertragung nicht verändert wurden?",
+    "choices": [
+      {"id": "A", "text": "Vertraulichkeit", "isCorrect": false, "explanation": "Vertraulichkeit schützt vor Einsichtnahme, Integrität schützt vor ungewollter Veränderung."},
+      {"id": "B", "text": "Integrität", "isCorrect": true, "explanation": "Integrität stellt sicher, dass Daten nicht unbemerkt verändert wurden (z.B. mittels Hashing)."},
+      {"id": "C", "text": "Verfügbarkeit", "isCorrect": false, "explanation": "Verfügbarkeit bedeutet, dass Systeme und Daten erreichbar sind."},
+      {"id": "D", "text": "Authentifizierung", "isCorrect": false, "explanation": "Authentifizierung bestätigt Identitäten, aber sagt nichts über unautorisierte Datenänderung."}
+    ],
+    "category": "Konzepte der Informationssicherheit",
+    "tags": ["CIA","Integrität"]
+  }
+]
