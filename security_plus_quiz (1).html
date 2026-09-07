@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security+ Trainer — Prüfungs- &amp; Tutor-Modus</title>
+<style>
+  :root{
+    --bg: #0c1116;
+    --panel: #131a22;
+    --panel-2: #1a2330;
+    --line: #263140;
+    --text: #e7edf3;
+    --text-dim: #8fa1b3;
+    --amber: #e2a33b;
+    --amber-dim: #6b5527;
+    --teal: #35c9a5;
+    --teal-dim: #12403a;
+    --red: #e2603b;
+    --red-dim: #4a2620;
+    --mono: "SFMono-Regular", "SF Mono", Consolas, "Roboto Mono", monospace;
+    --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0; background:var(--bg); color:var(--text);
+    font-family:var(--sans); min-height:100vh;
+  }
+  body{
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: -1px -1px;
+    background-attachment: fixed;
+  }
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+  .topbar{
+    display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px; margin-bottom: 28px;
+  }
+  .brand{ font-family:var(--mono); font-size:13px; letter-spacing:.04em; color:var(--text-dim); }
+  .brand b{ color:var(--amber); font-weight:600; }
+  .badge{
+    font-family:var(--mono); font-size:11px; color:var(--text-dim);
+    border:1px solid var(--line); padding:3px 8px; border-radius:3px;
+  }
+
+  /* ---------- Start screen ---------- */
+  .hero h1{
+    font-size: 30px; line-height:1.25; margin:0 0 10px;
+    font-weight:700; letter-spacing:-0.01em;
+  }
+  .hero p{
+    color: var(--text-dim); font-size:15px; line-height:1.6; max-width:56ch; margin:0 0 30px;
+  }
+  .mode-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:600px){ .mode-grid{ grid-template-columns:1fr; } }
+  .mode-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px;
+    padding:22px; cursor:pointer; text-align:left; color:var(--text);
+    transition: border-color .15s ease, transform .15s ease;
+    font-family:var(--sans); position:relative; overflow:hidden;
+  }
+  .mode-card:hover{ border-color:var(--amber); transform:translateY(-2px); }
+  .mode-card .tag{
+    font-family:var(--mono); font-size:11px; color:var(--amber);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px; display:block;
+  }
+  .mode-card h3{ margin:0 0 8px; font-size:19px; }
+  .mode-card p{ margin:0 0 14px; font-size:13.5px; color:var(--text-dim); line-height:1.55; }
+  .mode-card .count{ font-family:var(--mono); font-size:26px; color:var(--text); }
+  .mode-card .count span{ font-size:13px; color:var(--text-dim); font-family:var(--sans); }
+
+  .pool-note{
+    margin-top:26px; font-size:12.5px; color:var(--text-dim); font-family:var(--mono);
+    border-left:2px solid var(--line); padding-left:12px;
+  }
+
+  /* ---------- Quiz screen ---------- */
+  .quiz-toolbar{
+    position: sticky; top: 0; z-index: 20;
+    display:flex; justify-content:flex-end; gap:10px;
+    padding: 10px 0 14px;
+    background: var(--bg);
+  }
+  .btn.small{ padding:8px 16px; font-size:13px; }
+  .progress-row{
+    display:flex; align-items:center; gap:14px; margin-bottom:24px;
+  }
+  .progress-track{
+    flex:1; height:6px; background:var(--panel-2); border-radius:3px; overflow:hidden;
+  }
+  .progress-fill{ height:100%; background:var(--amber); width:0%; transition:width .25s ease; }
+  .progress-label{ font-family:var(--mono); font-size:12px; color:var(--text-dim); white-space:nowrap; }
+  .score-live{ font-family:var(--mono); font-size:12px; color:var(--teal); white-space:nowrap; }
+
+  .q-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:26px;
+  }
+  .q-domain{
+    font-family:var(--mono); font-size:11px; color:var(--amber);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px;
+  }
+  .q-text{ font-size:17px; line-height:1.55; margin:0 0 22px; }
+
+  .options{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    display:flex; gap:12px; align-items:flex-start;
+    background:var(--panel-2); border:1px solid var(--line); border-radius:5px;
+    padding:13px 14px; cursor:pointer; text-align:left; color:var(--text);
+    font-family:var(--sans); font-size:14.5px; line-height:1.5;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .opt:hover:not(.locked){ border-color:var(--amber); }
+  .opt .letter{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+    border:1px solid var(--line); border-radius:3px; width:22px; height:22px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+  }
+  .opt.correct{ border-color:var(--teal); background:var(--teal-dim); }
+  .opt.correct .letter{ border-color:var(--teal); color:var(--teal); }
+  .opt.wrong{ border-color:var(--red); background:var(--red-dim); }
+  .opt.wrong .letter{ border-color:var(--red); color:var(--red); }
+  .opt.locked{ cursor:default; }
+  .opt.dim{ opacity:.55; }
+
+  .feedback{
+    margin-top:20px; padding:16px 18px; border-radius:5px; border:1px solid var(--line);
+    background:var(--panel-2); font-size:14px; line-height:1.6; display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback .verdict{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em;
+    margin-bottom:8px; display:block;
+  }
+  .feedback.right .verdict{ color:var(--teal); }
+  .feedback.wrong .verdict{ color:var(--red); }
+  .feedback .expl{ color:var(--text); }
+  .feedback .expl b{ color:var(--amber); }
+
+  .actions{ display:flex; justify-content:flex-end; margin-top:22px; }
+  .btn{
+    font-family:var(--sans); font-size:14px; font-weight:600; border:none; border-radius:5px;
+    padding:11px 22px; cursor:pointer; color:#0c1116; background:var(--amber);
+    transition: opacity .12s ease;
+  }
+  .btn:hover{ opacity:.88; }
+  .btn:disabled{ background:var(--panel-2); color:var(--text-dim); cursor:not-allowed; }
+  .btn.ghost{
+    background:transparent; color:var(--text); border:1px solid var(--line);
+  }
+
+  /* ---------- Summary screen ---------- */
+  .summary-top{ display:flex; gap:22px; margin-bottom:30px; flex-wrap:wrap; }
+  .stat{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px;
+    padding:18px 22px; flex:1; min-width:140px;
+  }
+  .stat .num{ font-family:var(--mono); font-size:30px; color:var(--amber); line-height:1; }
+  .stat.pass .num{ color:var(--teal); }
+  .stat.fail .num{ color:var(--red); }
+  .stat .lbl{ font-size:12px; color:var(--text-dim); margin-top:6px; }
+
+  .verdict-banner{
+    font-family:var(--mono); font-size:13px; padding:12px 16px; border-radius:5px;
+    margin-bottom:30px; border:1px solid var(--line);
+  }
+  .verdict-banner.pass{ color:var(--teal); border-color:var(--teal-dim); background:var(--teal-dim); }
+  .verdict-banner.fail{ color:var(--red); border-color:var(--red-dim); background:var(--red-dim); }
+
+  .review-head{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+    text-transform:uppercase; letter-spacing:.06em; margin:0 0 14px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;
+  }
+  .review-item{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px;
+    padding:20px 22px; margin-bottom:14px;
+  }
+  .review-item .rq{ font-size:15px; margin:0 0 12px; line-height:1.5; }
+  .review-line{ font-size:13.5px; margin-bottom:5px; line-height:1.5; }
+  .review-line .lab{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.04em; margin-right:8px; }
+  .review-line.your .lab{ color:var(--red); }
+  .review-line.right .lab{ color:var(--teal); }
+  .review-expl{
+    margin-top:10px; padding-top:10px; border-top:1px solid var(--line);
+    font-size:13.5px; color:var(--text-dim); line-height:1.6;
+  }
+  .review-expl b{ color:var(--amber); }
+
+  .empty-review{ color:var(--text-dim); font-size:14px; font-family:var(--mono); padding:20px 0; }
+
+  /* ---------- Domain pie charts ---------- */
+  .charts-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px;
+  }
+  @media (max-width:600px){ .charts-row{ grid-template-columns:1fr; } }
+  .chart-panel{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px;
+  }
+  .chart-title{
+    margin:0 0 16px; font-size:14px; font-family:var(--mono);
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  .chart-title.good{ color:var(--teal); }
+  .chart-title.bad{ color:var(--red); }
+  .chart-body{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .chart-body svg{ display:block; }
+  .chart-empty{ font-size:13px; color:var(--text-dim); font-family:var(--mono); text-align:center; padding:24px 6px; }
+  .legend{ width:100%; display:flex; flex-direction:column; gap:8px; }
+  .legend-row{ display:flex; align-items:center; gap:9px; font-size:13px; }
+  .legend-swatch{ width:11px; height:11px; border-radius:2px; flex-shrink:0; }
+  .legend-label{ flex:1; color:var(--text); }
+  .legend-value{ font-family:var(--mono); font-size:12px; color:var(--text-dim); }
+
+  .restart-row{ margin-top:34px; display:flex; gap:12px; }
+
+  .hidden{ display:none !important; }
+
+  /* ---------- Custom confirm modal ---------- */
+  .modal-overlay{
+    position: fixed; inset: 0; background: rgba(6,9,13,0.72);
+    display:flex; align-items:center; justify-content:center;
+    z-index: 100; padding: 20px;
+  }
+  .modal-box{
+    background: var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding: 24px; max-width: 420px; width:100%;
+  }
+  .modal-msg{ margin: 0 0 20px; font-size: 14.5px; line-height:1.6; color: var(--text); }
+  .modal-actions{ display:flex; justify-content:flex-end; gap:10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand"><b>SEC+</b> // TRAINER</div>
+    <div class="badge" id="modeBadge">SY0-701 ÜBUNG</div>
+  </div>
+
+  <!-- START SCREEN -->
+  <div id="start-screen">
+    <div class="hero">
+      <h1>Bereit für die Security+ Prüfung?</h1>
+      <p>Übungsfragen im CompTIA-Jargon, aus einem Pool von 108 Original-Fragen zu allen fünf Prüfungsdomänen. Wähle einen Modus — bei beiden bekommst du sofort nach jeder Frage Feedback samt Begründung, warum eine Antwort richtig oder falsch ist.</p>
+    </div>
+    <div class="mode-grid">
+      <button class="mode-card" onclick="startQuiz('exam')">
+        <span class="tag">Prüfungsmodus</span>
+        <h3>Volle Simulation</h3>
+        <p>90 zufällige Fragen aus allen Domänen, in Prüfungslänge. Direktes Feedback pro Frage, am Ende eine vollständige Auswertung.</p>
+        <div class="count">90 <span>Fragen</span></div>
+      </button>
+      <button class="mode-card" onclick="startQuiz('tutor')">
+        <span class="tag">Tutor-Modus</span>
+        <h3>Kurzes Training</h3>
+        <p>20 zufällige Fragen für eine schnelle Wiederholungsrunde zwischendurch — gleiches Feedback, kompakterer Umfang.</p>
+        <div class="count">20 <span>Fragen</span></div>
+      </button>
+    </div>
+    <div class="pool-note">Fragen-Pool: 108 Original-Fragen · Domänen: General Concepts, Threats &amp; Vulnerabilities, Security Architecture, Security Operations, Governance &amp; Risk</div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz-screen" class="hidden">
+    <div class="quiz-toolbar">
+      <button class="btn ghost small" onclick="cancelQuiz()">Abbrechen</button>
+      <button class="btn small" onclick="finishNow()">Abgeben</button>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">1 / 90</div>
+      <div class="score-live" id="scoreLive">0 richtig</div>
+    </div>
+    <div class="q-card">
+      <div class="q-domain" id="qDomain">Domäne</div>
+      <p class="q-text" id="qText">Frage</p>
+      <div class="options" id="qOptions"></div>
+      <div class="feedback" id="qFeedback">
+        <span class="verdict" id="fVerdict"></span>
+        <div class="expl" id="fExpl"></div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="nextBtn" disabled onclick="nextQuestion()">Weiter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY SCREEN -->
+  <div id="summary-screen" class="hidden">
+    <div class="verdict-banner" id="verdictBanner"></div>
+    <div class="summary-top">
+      <div class="stat"><div class="num" id="sumTotal">0</div><div class="lbl">Fragen beantwortet</div></div>
+      <div class="stat pass"><div class="num" id="sumCorrect">0</div><div class="lbl">Richtig</div></div>
+      <div class="stat fail"><div class="num" id="sumWrong">0</div><div class="lbl">Falsch</div></div>
+      <div class="stat"><div class="num" id="sumPercent">0%</div><div class="lbl">Ergebnis</div></div>
+    </div>
+
+    <p class="review-head">Auswertung nach Themen</p>
+    <div class="charts-row" id="chartsRow">
+      <div class="chart-panel">
+        <h4 class="chart-title good">Deine Stärken</h4>
+        <div class="chart-body" id="goodChartBody"></div>
+      </div>
+      <div class="chart-panel">
+        <h4 class="chart-title bad">Verbesserungspotenzial</h4>
+        <div class="chart-body" id="badChartBody"></div>
+      </div>
+    </div>
+
+    <p class="review-head">Review der falsch beantworteten Fragen</p>
+    <div id="reviewList"></div>
+
+    <div class="restart-row">
+      <button class="btn" onclick="location.reload()">Neuer Durchlauf</button>
+      <button class="btn ghost" onclick="goHome()">Zur Startseite</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- CUSTOM CONFIRM MODAL (replaces window.confirm, which some embedded/sandboxed viewers block) -->
+<div id="confirmOverlay" class="modal-overlay hidden">
+  <div class="modal-box">
+    <p id="confirmMessage" class="modal-msg"></p>
+    <div class="modal-actions">
+      <button class="btn ghost small" id="confirmNoBtn">Zurück</button>
+      <button class="btn small" id="confirmYesBtn">Bestätigen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   FRAGEN-POOL — 110 Original-Übungsfragen, CompTIA Security+ (SY0-701)
+   Jede Frage: domain, q, options[4], correct (Index), expl
+   ============================================================ */
+const BANK = [
+
+// ---------- General Security Concepts ----------
+{domain:"General Concepts", q:"Ein Unternehmen möchte sicherstellen, dass vertrauliche Personaldaten nur von befugten Mitarbeitenden gelesen werden können. Welches Grundprinzip der Sicherheits-Triade (CIA) wird hier primär geschützt?", options:["Verfügbarkeit","Vertraulichkeit","Integrität","Nichtabstreitbarkeit"], correct:1, expl:"<b>Richtig ist Vertraulichkeit</b>, da es um den Schutz vor unbefugtem Lesezugriff geht. Verfügbarkeit betrifft den Zugriff bei Bedarf, Integrität die Unverändertheit der Daten, und Nichtabstreitbarkeit ist kein Teil der CIA-Triade, sondern ein separates Konzept zur Zurechenbarkeit von Handlungen."},
+
+{domain:"General Concepts", q:"Ein Administrator implementiert eine Lösung, bei der jede Zugriffsanfrage unabhängig vom Netzwerkstandort explizit überprüft wird, bevor Zugriff gewährt wird. Welches Konzept beschreibt dies am besten?", options:["Perimeter-Sicherheit","Zero Trust","Defense in Depth","Air Gapping"], correct:1, expl:"<b>Zero Trust</b> geht davon aus, dass keinem Gerät oder Nutzer allein aufgrund des Netzwerkstandorts vertraut wird — jede Anfrage wird verifiziert. Perimeter-Sicherheit vertraut allem innerhalb der Grenze, Defense in Depth ist ein Schichtenkonzept ohne diesen spezifischen Fokus, und Air Gapping bedeutet physische Trennung vom Netzwerk."},
+
+{domain:"General Concepts", q:"Welche Art von Sicherheitskontrolle stellt eine Videoüberwachungskamera in einem Serverraum dar?", options:["Präventiv","Detektiv","Korrektiv","Kompensierend"], correct:1, expl:"<b>Detektiv</b> ist korrekt, da die Kamera einen Vorfall erkennt bzw. aufzeichnet, ihn aber nicht verhindert. Präventive Kontrollen verhindern Vorfälle im Voraus (z. B. Türschlösser), korrektive Kontrollen beheben Schäden nach einem Vorfall, und kompensierende Kontrollen ersetzen eine nicht umsetzbare primäre Kontrolle."},
+
+{domain:"General Concepts", q:"Welches AAA-Element stellt sicher, dass ein Benutzer beweist, dass er tatsächlich die Person ist, für die er sich ausgibt?", options:["Autorisierung","Abrechnung (Accounting)","Authentifizierung","Zurechenbarkeit"], correct:2, expl:"<b>Authentifizierung</b> überprüft die Identität eines Nutzers, typischerweise über Passwort, Token oder Biometrie. Autorisierung legt fest, worauf ein authentifizierter Nutzer zugreifen darf, Accounting protokolliert Aktivitäten, und Zurechenbarkeit ist kein offizielles AAA-Element."},
+
+{domain:"General Concepts", q:"Ein Unternehmen speichert Passwörter niemals im Klartext, sondern wendet vor dem Hashing einen zufälligen, einzigartigen Wert pro Passwort an. Welche Technik wird hier beschrieben?", options:["Steganographie","Salting","Tokenisierung","Data Masking"], correct:1, expl:"<b>Salting</b> fügt jedem Passwort vor dem Hashing einen zufälligen Wert hinzu, um Rainbow-Table-Angriffe zu verhindern. Steganographie versteckt Daten in anderen Dateien, Tokenisierung ersetzt sensible Daten durch nicht-sensible Platzhalter, und Data Masking verschleiert Daten für Anzeigezwecke."},
+
+{domain:"General Concepts", q:"Welches Zertifikatsvalidierungsverfahren ermöglicht eine Echtzeitprüfung, ob ein Zertifikat widerrufen wurde, ohne eine vollständige Sperrliste herunterladen zu müssen?", options:["CRL", "OCSP", "CSR", "CA-Chaining"], correct:1, expl:"<b>OCSP (Online Certificate Status Protocol)</b> fragt den Status eines einzelnen Zertifikats in Echtzeit bei der ausstellenden Stelle ab. Eine CRL ist eine vollständige, oft große Liste widerrufener Zertifikate, ein CSR ist eine Zertifikatsanfrage, und CA-Chaining beschreibt die Vertrauenskette zwischen Zertifizierungsstellen."},
+
+{domain:"General Concepts", q:"Welche kryptografische Eigenschaft wird durch eine digitale Signatur primär bereitgestellt, die über reine Verschlüsselung hinausgeht?", options:["Vertraulichkeit","Nichtabstreitbarkeit","Verfügbarkeit","Redundanz"], correct:1, expl:"<b>Nichtabstreitbarkeit</b> ist korrekt: Eine digitale Signatur beweist, dass eine bestimmte Person eine Nachricht signiert hat, sodass sie dies später nicht abstreiten kann. Verschlüsselung allein sorgt für Vertraulichkeit, aber nicht für den Nachweis der Urheberschaft."},
+
+{domain:"General Concepts", q:"Ein Unternehmen möchte den Diebstahl eines Laptops absichern, sodass Daten auf der Festplatte auch bei physischem Zugriff nicht ausgelesen werden können. Welche Maßnahme ist am geeignetsten?", options:["Partitionsverschlüsselung einzelner Ordner","Full Disk Encryption (FDE)","Datenbankverschlüsselung","Asymmetrische Verschlüsselung von E-Mails"], correct:1, expl:"<b>Full Disk Encryption</b> verschlüsselt die gesamte Festplatte inklusive Betriebssystem, sodass ohne den Schlüssel keine Daten lesbar sind — ideal bei Laptop-Diebstahl. Partitionsverschlüsselung schützt nicht das gesamte System, Datenbankverschlüsselung betrifft nur DB-Inhalte, und E-Mail-Verschlüsselung schützt keine lokal gespeicherten Dateien."},
+
+{domain:"General Concepts", q:"Welches Konzept beschreibt am besten die Verwendung von Hardware-Sicherheitsmodulen (HSM) in Kombination mit Full Disk Encryption?", options:["Sichere Speicherung und Verwaltung kryptografischer Schlüssel","Erkennung von Malware in Echtzeit","Netzwerksegmentierung auf Layer 2","Automatisierte Patch-Verteilung"], correct:0, expl:"<b>HSMs</b> dienen der sicheren Erzeugung, Speicherung und Verwaltung kryptografischer Schlüssel — ein zentraler Bestandteil beim Planen von FDE-Rollouts (Stichwort Key Escrow). Sie haben keine Funktion bei Malware-Erkennung, Netzwerksegmentierung oder Patch-Verteilung."},
+
+{domain:"General Concepts", q:"Eine Organisation verlangt bei sensiblen Transaktionen zusätzlich zu Passwort und Hardware-Token eine Bestätigung per Fingerabdruck. Um welches Konzept handelt es sich?", options:["Single Sign-On","Multifaktor-Authentifizierung","Federated Identity","Rollenbasierte Zugriffskontrolle"], correct:1, expl:"<b>Multifaktor-Authentifizierung (MFA)</b> kombiniert mehrere unabhängige Faktoren (Wissen, Besitz, Inhärenz) — hier Passwort, Token und Fingerabdruck. SSO reduziert die Anzahl nötiger Logins, Federated Identity nutzt eine externe Identitätsquelle, und RBAC steuert Berechtigungen basierend auf Rollen, nicht auf Authentifizierungsfaktoren."},
+
+{domain:"General Concepts", q:"Welches Zugriffskontrollmodell vergibt Berechtigungen basierend auf Attributen wie Abteilung, Standort und Uhrzeit statt fester Rollen?", options:["DAC","MAC","ABAC","RBAC"], correct:2, expl:"<b>ABAC (Attribute-Based Access Control)</b> nutzt flexible Attribute zur dynamischen Zugriffsentscheidung. DAC erlaubt Eigentümern, Zugriffsrechte selbst zu vergeben, MAC nutzt starre, zentral vergebene Klassifizierungen, und RBAC basiert auf festen Rollen statt Attributen."},
+
+{domain:"General Concepts", q:"Welches Prinzip wird verletzt, wenn ein Servicedesk-Mitarbeiter dauerhaft administrative Rechte auf allen Servern besitzt, obwohl er sie nur gelegentlich für Wartungsarbeiten benötigt?", options:["Separation of Duties","Least Privilege","Non-repudiation","Defense in Depth"], correct:1, expl:"<b>Least Privilege</b> verlangt, dass Nutzer nur die minimal notwendigen Rechte für ihre Aufgaben erhalten — dauerhafte Adminrechte für gelegentliche Aufgaben verstoßen dagegen. Separation of Duties trennt kritische Aufgaben auf mehrere Personen, Non-repudiation betrifft Nachweisbarkeit, und Defense in Depth ist ein Schichtenkonzept."},
+
+{domain:"General Concepts", q:"Ein Unternehmen führt regelmäßig unangekündigte Tests durch, bei denen Mitarbeitende versuchen, sich gegenseitig kritische Freigaben (z. B. Überweisungen) ohne Zweitprüfung durchzuwinken. Welches Prinzip soll dadurch abgesichert werden?", options:["Job Rotation","Separation of Duties","Mandatory Vacation","Least Privilege"], correct:1, expl:"<b>Separation of Duties</b> verlangt, dass kritische Prozesse mindestens zwei Personen benötigen, um Betrug oder Fehler zu verhindern. Job Rotation wechselt Mitarbeitende zwischen Aufgaben, Mandatory Vacation deckt Unregelmäßigkeiten während Abwesenheit auf, und Least Privilege betrifft die Rechtevergabe an sich, nicht die Aufteilung von Prozessen."},
+
+{domain:"General Concepts", q:"Welche Aussage beschreibt am besten den Unterschied zwischen symmetrischer und asymmetrischer Verschlüsselung?", options:["Symmetrische Verschlüsselung ist grundsätzlich unsicherer","Asymmetrische Verschlüsselung nutzt ein Schlüsselpaar, symmetrische einen gemeinsamen Schlüssel","Symmetrische Verschlüsselung wird nur für digitale Signaturen verwendet","Asymmetrische Verschlüsselung ist bei großen Datenmengen effizienter"], correct:1, expl:"<b>Richtig:</b> Symmetrische Verschlüsselung nutzt einen gemeinsamen geheimen Schlüssel für Ver- und Entschlüsselung, asymmetrische ein öffentliches/privates Schlüsselpaar. Symmetrisch ist nicht per se unsicherer, wird nicht nur für Signaturen genutzt (das ist eher asymmetrisch), und asymmetrische Verschlüsselung ist bei großen Datenmengen tatsächlich langsamer, nicht effizienter."},
+
+{domain:"General Concepts", q:"Welches Ziel verfolgt Key Stretching in der Kryptographie?", options:["Verlängerung der Gültigkeitsdauer eines Zertifikats","Erhöhung des Rechenaufwands, um Brute-Force-Angriffe auf schwache Passwörter zu erschweren","Automatische Rotation von Verschlüsselungsschlüsseln","Verteilung eines Schlüssels auf mehrere Empfänger"], correct:1, expl:"<b>Key Stretching</b> (z. B. PBKDF2, bcrypt) erhöht absichtlich den Rechenaufwand pro Hash-Berechnung, um Brute-Force- und Wörterbuchangriffe zu verlangsamen. Es hat nichts mit Zertifikatsgültigkeit, Schlüsselrotation oder Schlüsselverteilung zu tun."},
+
+{domain:"General Concepts", q:"Ein Entwickler versteckt eine geheime Nachricht innerhalb der Pixel eines Bildes, sodass das Bild optisch unverändert wirkt. Welche Technik beschreibt dies?", options:["Steganographie","Obfuskation","Hashing","Tokenisierung"], correct:0, expl:"<b>Steganographie</b> verbirgt Informationen innerhalb eines anderen, unauffälligen Mediums. Obfuskation macht Code oder Daten schwer lesbar, ohne sie zu verstecken, Hashing erzeugt einen Fingerabdruck von Daten, und Tokenisierung ersetzt sensible Werte durch Platzhalter."},
+
+{domain:"General Concepts", q:"Welches Verfahren wird verwendet, um zu prüfen, ob eine Datei während der Übertragung verändert wurde, ohne die Datei selbst zu entschlüsseln?", options:["Hash-Vergleich","Tokenisierung","Data Masking","Homomorphe Verschlüsselung"], correct:0, expl:"<b>Ein Hash-Vergleich</b> (z. B. SHA-256) erzeugt vor und nach der Übertragung einen Prüfwert; stimmen beide überein, war die Datei unverändert. Tokenisierung und Data Masking dienen dem Schutz sensibler Werte, nicht der Integritätsprüfung, und homomorphe Verschlüsselung erlaubt Berechnungen auf verschlüsselten Daten."},
+
+{domain:"General Concepts", q:"Ein Unternehmen möchte Kundendaten in einer Testumgebung verwenden, ohne echte personenbezogene Daten preiszugeben, aber das Format der Daten (z. B. Kreditkartennummern) muss erhalten bleiben. Welche Technik eignet sich am besten?", options:["Data Masking","Verschlüsselung","Digitale Signatur","Zertifikatspinning"], correct:0, expl:"<b>Data Masking</b> ersetzt echte Werte durch realistisch aussehende, aber fiktive Daten, wodurch das Format erhalten bleibt, ohne echte sensible Informationen preiszugeben. Verschlüsselung würde die Daten unlesbar machen statt sie zu ersetzen, digitale Signaturen betreffen Authentizität, und Zertifikatspinning ist eine TLS-Absicherung."},
+
+{domain:"General Concepts", q:"Welches Konzept beschreibt am besten eine Public-Key-Infrastruktur (PKI)?", options:["Ein System zur Verwaltung symmetrischer Schlüssel in einem Netzwerksegment","Ein Rahmenwerk aus Richtlinien, Rollen und Technologien zur Verwaltung digitaler Zertifikate und öffentlicher Schlüssel","Eine Firewall-Konfiguration zur Absicherung von Webservern","Ein Protokoll zur Verschlüsselung von VPN-Tunneln"], correct:1, expl:"<b>PKI</b> umfasst die gesamte Infrastruktur — Zertifizierungsstellen, Registrierungsstellen, Richtlinien und Prozesse — zur Ausstellung, Verwaltung und zum Widerruf digitaler Zertifikate. Es geht dabei nicht um symmetrische Schlüssel, Firewalls oder ein spezifisches VPN-Protokoll."},
+
+{domain:"General Concepts", q:"Welche Aussage zu Blockchain-Technologie im Sicherheitskontext trifft am ehesten zu?", options:["Sie ersetzt vollständig die Notwendigkeit von Verschlüsselung","Sie bietet durch verteilte, verkettete Hashes eine hohe Manipulationssicherheit von Transaktionsdaten","Sie eliminiert die Notwendigkeit von Zugriffskontrollen","Sie funktioniert ausschließlich innerhalb geschlossener Netzwerke"], correct:1, expl:"<b>Blockchain</b> nutzt verkettete, kryptografisch gesicherte Blöcke, die in einem verteilten Ledger gespeichert werden — das macht nachträgliche Manipulation extrem aufwendig erkennbar. Sie ersetzt weder Verschlüsselung noch Zugriffskontrollen und ist nicht zwingend auf geschlossene Netzwerke beschränkt."},
+
+// ---------- Threats, Vulnerabilities & Mitigations ----------
+{domain:"Threats & Vulnerabilities", q:"Ein ehemaliger Mitarbeiter, der aus Rache vertrauliche Daten seines früheren Arbeitgebers veröffentlicht, ist ein Beispiel für welchen Bedrohungsakteur?", options:["Nation-State-Akteur","Insider Threat","Hacktivist","Script Kiddie"], correct:1, expl:"<b>Insider Threat</b> beschreibt eine Person mit legitimem oder ehemaligem Zugriff, die dem Unternehmen absichtlich oder fahrlässig schadet. Nation-State-Akteure handeln im staatlichen Auftrag, Hacktivisten aus ideologischen Motiven gegenüber Dritten, und Script Kiddies nutzen fertige Tools ohne tiefes technisches Wissen."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Angreifer registriert die Domain 'micros0ft-support.com', um Nutzer zu täuschen, die sich vertippen. Welche Art von Angriff liegt hier vor?", options:["Typosquatting","Pretexting","Vishing","Whaling"], correct:0, expl:"<b>Typosquatting</b> nutzt gezielt Tippfehler-Varianten bekannter Domains, um Opfer auf betrügerische Seiten zu locken. Pretexting nutzt eine erfundene Geschichte zur Manipulation, Vishing erfolgt per Telefon, und Whaling zielt speziell auf hochrangige Führungskräfte."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Mitarbeiter erhält einen Anruf von einer Person, die sich als IT-Support ausgibt und um das Passwort bittet, um angeblich ein 'dringendes Problem' zu lösen. Welche Social-Engineering-Technik wird hier primär genutzt?", options:["Smishing","Pretexting","Tailgating","Watering-Hole-Angriff"], correct:1, expl:"<b>Pretexting</b> beschreibt das Erfinden eines glaubwürdigen Vorwands (hier: dringendes IT-Problem), um Informationen zu erlangen. Smishing erfolgt per SMS, Tailgating ist unbefugtes physisches Mitgehen durch eine Tür, und ein Watering-Hole-Angriff kompromittiert eine häufig besuchte Website."},
+
+{domain:"Threats & Vulnerabilities", q:"Malware, die sich selbstständig ohne Nutzerinteraktion über ein Netzwerk verbreitet, indem sie Schwachstellen ausnutzt, wird als was bezeichnet?", options:["Trojaner","Wurm","Logikbombe","Rootkit"], correct:1, expl:"<b>Ein Wurm</b> verbreitet sich eigenständig über Netzwerke, ohne dass ein Nutzer eine infizierte Datei ausführen muss. Ein Trojaner tarnt sich als legitime Software und benötigt Nutzerinteraktion, eine Logikbombe wird durch ein bestimmtes Ereignis ausgelöst, und ein Rootkit verschleiert die Anwesenheit von Malware auf Systemebene."},
+
+{domain:"Threats & Vulnerabilities", q:"Nach der Installation eines scheinbar harmlosen Tools bemerkt ein Administrator, dass sich cmd.exe verändert hat, obwohl keine Patches installiert wurden. Was ist am wahrscheinlichsten passiert?", options:["Ein Snapshot des Dateisystems wurde erstellt","Ein Rootkit wurde installiert","Die Dateiberechtigungen wurden geändert","Ein kryptografischer Hash-Kollisionsfehler trat auf"], correct:1, expl:"<b>Ein Rootkit</b> manipuliert häufig Systemdateien wie cmd.exe, um sich tief im System zu verankern und Erkennung zu umgehen — ohne offizielle Patches erklärt das die Hash-Änderung. Ein Snapshot verändert die Datei nicht, Berechtigungsänderungen ändern nicht den Hash-Wert, und Hash-Kollisionen sind extrem selten und kein realistischer Erklärungsansatz hier."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Angriffsart nutzt ein Eingabefeld einer Webanwendung, um über manipulierte SQL-Befehle Daten aus der Datenbank auszulesen?", options:["Cross-Site Scripting","SQL Injection","Buffer Overflow","Directory Traversal"], correct:1, expl:"<b>SQL Injection</b> schleust manipulierte SQL-Befehle über ungeprüfte Eingabefelder ein, um Datenbankabfragen zu verändern. Cross-Site Scripting injiziert stattdessen Skriptcode, der im Browser anderer Nutzer ausgeführt wird, ein Buffer Overflow überschreibt Speicherbereiche, und Directory Traversal greift auf Dateien außerhalb des vorgesehenen Verzeichnisses zu."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Angreifer kompromittiert eine Branchen-Website, von der er weiß, dass Mitarbeiter des Zielunternehmens sie regelmäßig besuchen, um darüber Malware zu verbreiten. Wie wird diese Angriffstechnik genannt?", options:["Watering-Hole-Angriff","Business Email Compromise","Smishing","Baiting"], correct:0, expl:"<b>Ein Watering-Hole-Angriff</b> kompromittiert gezielt eine Website, die die Zielgruppe häufig besucht. Business Email Compromise nutzt gefälschte E-Mails im Namen von Führungskräften, Smishing erfolgt per SMS, und Baiting lockt Opfer mit einem physischen oder digitalen Köder (z. B. präpariertem USB-Stick)."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Schwachstelle entsteht typischerweise durch das Installieren von Apps außerhalb des offiziellen App-Stores eines Herstellers auf einem mobilen Gerät?", options:["Jailbreaking","Side Loading","Memory Injection","Resource Reuse"], correct:1, expl:"<b>Side Loading</b> beschreibt genau diesen Vorgang: die Installation von Anwendungen aus nicht offiziellen Quellen, was Sicherheitsprüfungen umgeht. Jailbreaking entfernt Herstellerbeschränkungen des Betriebssystems selbst, Memory Injection manipuliert laufende Prozesse, und Resource Reuse betrifft die Wiederverwendung freigegebener Speicherbereiche."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Sicherheitsanalyst bemerkt zahlreiche fehlgeschlagene Login-Versuche mit demselben Benutzernamen, aber unterschiedlichen, systematisch durchprobierten Passwörtern. Um welchen Angriff handelt es sich am wahrscheinlichsten?", options:["Password Spraying","Brute-Force-Angriff","Credential Stuffing","Pass-the-Hash"], correct:1, expl:"<b>Ein Brute-Force-Angriff</b> probiert bei einem einzelnen Konto systematisch viele Passwörter durch. Password Spraying testet dagegen ein einzelnes, häufiges Passwort gegen viele Konten, Credential Stuffing nutzt bereits geleakte Zugangsdaten aus anderen Diensten, und Pass-the-Hash nutzt gestohlene Hash-Werte statt Klartext-Passwörter."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Art von Angriff liegt vor, wenn ein Programm mehr Daten in einen Speicherbereich schreibt, als dieser aufnehmen kann, wodurch angrenzender Speicher überschrieben wird?", options:["Buffer Overflow","Race Condition","VM Escape","Cross-Site Request Forgery"], correct:0, expl:"<b>Ein Buffer Overflow</b> beschreibt genau dieses Überschreiten der Speichergrenzen eines Puffers, was zu Abstürzen oder Codeausführung führen kann. Eine Race Condition entsteht durch zeitkritische, konkurrierende Prozesse, VM Escape bricht aus einer virtuellen Maschine aus, und CSRF zwingt einen authentifizierten Browser zu ungewollten Aktionen."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Schwachstellenkategorie betrifft am ehesten ein veraltetes BIOS/UEFI, für das der Hersteller ein Sicherheitsupdate veröffentlicht hat?", options:["Anwendungsschwachstelle","Firmware-Schwachstelle","Virtualisierungsschwachstelle","Betriebssystemschwachstelle"], correct:1, expl:"<b>Firmware-Schwachstellen</b> betreffen die auf Hardware-Ebene laufende Software wie BIOS/UEFI. Anwendungsschwachstellen betreffen Programme auf OS-Ebene, Virtualisierungsschwachstellen betreffen Hypervisor-Umgebungen, und Betriebssystemschwachstellen betreffen das OS selbst, nicht die darunterliegende Firmware."},
+
+{domain:"Threats & Vulnerabilities", q:"Welches Tool oder Verfahren wird verwendet, um die Kritikalität einer bekannten Schwachstelle quantitativ (numerisch) zu bewerten?", options:["CVE","CVSS","CERT","SCAP"], correct:1, expl:"<b>CVSS (Common Vulnerability Scoring System)</b> liefert eine numerische Bewertung (0–10) des Schweregrads einer Schwachstelle. CVE ist lediglich eine eindeutige Kennung/Katalogeintrag für eine Schwachstelle, CERT ist ein Reaktionsteam, und SCAP ist ein Rahmenwerk zur Automatisierung von Sicherheitsbewertungen."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Unternehmen erhält Alarme über große Mengen ungewöhnlicher DNS-Anfragen von einem internen System an externe Server, hauptsächlich außerhalb der Geschäftszeiten. Was liegt am wahrscheinlichsten vor?", options:["Ein Denial-of-Service-Angriff","Datenexfiltration über DNS-Tunneling","Eine fehlerhafte DNS-Konfiguration","Ein Patch-Rollout"], correct:1, expl:"<b>Datenexfiltration über DNS-Tunneling</b> nutzt DNS-Anfragen, um Daten unauffällig aus einem Netzwerk zu schleusen — das Muster (ungewöhnlich, außerhalb der Geschäftszeiten) passt dazu. Ein DoS-Angriff würde eher Ressourcen erschöpfen statt Daten zu versenden, eine Fehlkonfiguration würde kein gezieltes Exfiltrationsmuster erzeugen, und ein Patch-Rollout erklärt keine DNS-Anomalien nach außen."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Art von Angriff zielt speziell auf Datenbank-Fehlkonfigurationen ab, um unautorisierten Zugriff auf gespeicherte Daten zu erlangen?", options:["Buffer Overflow","SQL Injection","VM Escape","Memory Injection"], correct:1, expl:"<b>SQL Injection</b> nutzt oft genau Fehlkonfigurationen oder fehlende Eingabevalidierung in Datenbank-gestützten Anwendungen aus. Buffer Overflow betrifft Speicherverwaltung, VM Escape betrifft Virtualisierungsschichten, und Memory Injection manipuliert laufende Prozesse im Arbeitsspeicher, nicht primär Datenbanken."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Unternehmen bemerkt, dass ein interner Server unerwartet große Mengen Traffic an eine bekannte Malware-Command-and-Control-IP-Adresse sendet. Welche Art von Kontrolle hätte dies am ehesten in Echtzeit blockieren können?", options:["IDS","IPS","Passives Netzwerkmonitoring","Ein jährlicher Penetrationstest"], correct:1, expl:"<b>Ein IPS (Intrusion Prevention System)</b> kann bekannten bösartigen Traffic aktiv blockieren, während ein IDS diesen nur erkennt und meldet, ohne einzugreifen. Passives Monitoring erkennt ebenfalls nur, ohne zu blockieren, und ein jährlicher Penetrationstest bietet keinen Echtzeitschutz."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Angriffstechnik beschreibt das Ausnutzen einer noch unbekannten und daher ungepatchten Schwachstelle?", options:["Zero-Day-Angriff","Supply-Chain-Angriff","Replay-Angriff","On-Path-Angriff"], correct:0, expl:"<b>Ein Zero-Day-Angriff</b> nutzt eine Schwachstelle aus, für die der Hersteller noch keinen Patch bereitgestellt hat bzw. sie noch nicht kennt. Ein Supply-Chain-Angriff kompromittiert Drittanbieter oder Zulieferer, ein Replay-Angriff sendet abgefangene, gültige Daten erneut, und ein On-Path-Angriff (früher Man-in-the-Middle) positioniert sich zwischen zwei kommunizierenden Parteien."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Mitarbeiter erhält eine SMS, die vorgibt, von der Personalabteilung zu stammen und zur Bestätigung von Zugangsdaten auffordert. Welche zwei Social-Engineering-Techniken treffen hier am ehesten zu?", options:["Impersonation und Smishing","Vishing und Baiting","Tailgating und Pretexting","Whaling und Watering-Hole"], correct:0, expl:"<b>Impersonation und Smishing</b> treffen zu: Der Angreifer gibt sich als Personalabteilung aus (Impersonation) und nutzt dafür SMS (Smishing). Vishing wäre ein Telefonanruf, Baiting nutzt einen Köder, Tailgating ist physisches Mitgehen, und Whaling zielt speziell auf Führungskräfte."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Art von Malware verschlüsselt die Dateien eines Opfers und fordert eine Zahlung zur Entschlüsselung?", options:["Spyware","Ransomware","Adware","Rootkit"], correct:1, expl:"<b>Ransomware</b> verschlüsselt gezielt Daten und erpresst Lösegeld für den Entschlüsselungsschlüssel. Spyware sammelt heimlich Informationen, Adware zeigt unerwünschte Werbung an, und ein Rootkit verbirgt die Präsenz von Malware, verschlüsselt aber nicht zwangsläufig Daten."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Unternehmen wird Ziel eines Angriffs, bei dem der Täter über finanzielle Mittel eines fremden Staates verfügt und gezielt kritische Infrastruktur eines anderen Landes angreift. Um welchen Bedrohungsakteur handelt es sich am wahrscheinlichsten?", options:["Hacktivist","Unskilled Attacker","Nation-State-Akteur","Insider"], correct:2, expl:"<b>Nation-State-Akteure</b> verfügen typischerweise über erhebliche finanzielle und technische Ressourcen und verfolgen oft geopolitische Ziele gegen kritische Infrastruktur. Hacktivisten handeln aus ideologischen Gründen mit meist geringeren Ressourcen, Unskilled Attacker nutzen einfache, vorgefertigte Tools, und Insider handeln von innerhalb der Organisation."},
+
+{domain:"Threats & Vulnerabilities", q:"Welche Schwachstelle liegt typischerweise vor, wenn ein Angreifer über ein Eingabefeld JavaScript-Code einschleust, der im Browser anderer Nutzer der Website ausgeführt wird?", options:["SQL Injection","Cross-Site Scripting (XSS)","Buffer Overflow","Directory Traversal"], correct:1, expl:"<b>Cross-Site Scripting (XSS)</b> schleust Skriptcode ein, der bei anderen Nutzern im Browser ausgeführt wird — oft zum Diebstahl von Sitzungs-Cookies. SQL Injection zielt auf die Datenbank, Buffer Overflow auf Speicherbereiche, und Directory Traversal auf den unautorisierten Zugriff auf Dateisystempfade."},
+
+{domain:"Threats & Vulnerabilities", q:"Ein Unternehmen richtet ein absichtlich verwundbar wirkendes System ein, um Angreiferverhalten zu beobachten, ohne echte Produktionssysteme zu gefährden. Wie wird ein solches System genannt?", options:["Sandbox","Honeypot","Bastion Host","Jump Server"], correct:1, expl:"<b>Ein Honeypot</b> ist ein absichtlich als Köder eingerichtetes System, um Angreiferaktivitäten zu beobachten und zu analysieren. Eine Sandbox isoliert die Ausführung potenziell schädlicher Software zur Analyse, ein Bastion Host und ein Jump Server dienen als kontrollierte Zugangspunkte zu geschützten Netzwerksegmenten, nicht als Köder."},
+
+// ---------- Security Architecture ----------
+{domain:"Security Architecture", q:"Ein Unternehmen möchte administrativen Zugriff auf ein internes Netzwerksegment nur über einen einzigen, streng überwachten Zugangspunkt erlauben. Welche Lösung ist dafür am besten geeignet?", options:["Load Balancer","Jump Server","RADIUS-Server","Reverse Proxy"], correct:1, expl:"<b>Ein Jump Server</b> (auch Bastion Host) dient als einziger kontrollierter Zugangspunkt für administrativen Zugriff auf ein geschütztes Segment. Ein Load Balancer verteilt Traffic auf mehrere Server, ein RADIUS-Server übernimmt Authentifizierung, und ein Reverse Proxy leitet eingehende Webanfragen weiter, dient aber nicht primär der administrativen Zugriffskontrolle."},
+
+{domain:"Security Architecture", q:"Welche Firewall-Regel-Reihenfolge blockiert ausgehenden DNS-Verkehr für alle Geräte außer einem einzigen mit der IP 10.20.30.5?", options:["Erst 'permit any port 53', dann 'deny 10.20.30.5 port 53'","Erst 'permit 10.20.30.5 port 53', dann 'deny any port 53'","Erst 'deny 10.20.30.5 port 53', dann 'permit any port 53'","Nur 'deny any port 53' ohne weitere Regel"], correct:1, expl:"<b>Korrekt</b> ist, zuerst gezielt das eine Gerät zu erlauben ('permit 10.20.30.5 port 53') und danach alle anderen zu blockieren ('deny any port 53') — Firewall-Regeln werden der Reihe nach ausgewertet, die spezifischere Erlaubnis muss also zuerst stehen. Die anderen Optionen würden entweder das gewünschte Gerät versehentlich blockieren oder gar keine Einschränkung bewirken."},
+
+{domain:"Security Architecture", q:"Welche Architektur reduziert VPN- und Internet-Traffic bei Remote-Mitarbeitern, indem sie Sicherheitsfunktionen wie SWG, CASB und ZTNA direkt in der Cloud bündelt?", options:["SD-WAN","SASE","Klassisches Site-to-Site-VPN","MPLS"], correct:1, expl:"<b>SASE (Secure Access Service Edge)</b> kombiniert Netzwerk- und Sicherheitsfunktionen als Cloud-Dienst und reduziert dadurch die Last auf zentrale VPN-Konzentratoren. SD-WAN optimiert primär den Netzwerkpfad ohne diesen vollständigen Sicherheits-Stack, ein klassisches VPN erzeugt oft mehr zentrale Last, und MPLS ist eine Transporttechnologie ohne integrierte Sicherheitsfunktionen."},
+
+{domain:"Security Architecture", q:"Welche Lösung eignet sich am besten, um unbekannte, nicht autorisierte Programme grundsätzlich an der Ausführung zu hindern?", options:["Access Control List","Application Allow List","Host-based Firewall","DLP-Lösung"], correct:1, expl:"<b>Eine Application Allow List</b> lässt ausschließlich explizit freigegebene Programme laufen und blockiert alles andere standardmäßig — das ideale Mittel gegen unbekannte Software. Eine ACL steuert Netzwerkzugriffe, eine Host-Firewall filtert Verbindungen, und eine DLP-Lösung verhindert Datenabfluss, nicht die Ausführung von Programmen."},
+
+{domain:"Security Architecture", q:"Welche Cloud-Hosting-Lösung eignet sich am besten für kostengünstiges Hosting von Anwendungen, bei der keine Server verwaltet werden müssen und nach tatsächlicher Nutzung abgerechnet wird?", options:["Type 1 Hypervisor","Serverless Framework","SD-WAN","Software-Defined Networking"], correct:1, expl:"<b>Ein Serverless Framework</b> (z. B. Functions-as-a-Service) übernimmt die gesamte Serververwaltung und rechnet nach Nutzung ab. Ein Type-1-Hypervisor läuft direkt auf Hardware und erfordert Verwaltung, SD-WAN optimiert Netzwerkverbindungen, und SDN trennt Steuer- und Datenebene im Netzwerk — beides ohne direkten Bezug zu kostengünstigem App-Hosting."},
+
+{domain:"Security Architecture", q:"Welche Umgebung eignet sich am besten für sich ständig verändernde, dynamisch skalierende Anwendungsarchitekturen?", options:["RTOS","Container","Eingebettete Systeme (Embedded Systems)","SCADA"], correct:1, expl:"<b>Container</b> lassen sich schnell erstellen, skalieren und wieder verwerfen, was sie ideal für dynamische, sich häufig ändernde Umgebungen macht. RTOS und eingebettete Systeme sind auf feste, spezialisierte Funktionen ausgelegt, und SCADA-Systeme steuern industrielle Prozesse und sind eher statisch und langlebig konzipiert."},
+
+{domain:"Security Architecture", q:"Welches Verfahren automatisiert die Bereitstellung von Cloud-Ressourcen durch deklarativen oder skriptbasierten Code statt manueller Konfiguration?", options:["Software as a Service","Infrastructure as Code","Internet of Things","Platform as a Service"], correct:1, expl:"<b>Infrastructure as Code (IaC)</b> beschreibt genau diesen Ansatz: Ressourcen werden über Code definiert und automatisiert bereitgestellt, was Konsistenz und Wiederholbarkeit sicherstellt. SaaS liefert fertige Anwendungen, IoT betrifft vernetzte Geräte, und PaaS stellt eine Entwicklungsplattform bereit, ohne den Fokus auf automatisierte Infrastrukturdefinition."},
+
+{domain:"Security Architecture", q:"Ein Unternehmen möchte Kundendaten in einem eigenen Netzwerkbereich speichern, der für das restliche Unternehmensnetzwerk nicht erreichbar ist. Welches Konzept beschreibt dies am besten?", options:["Verschlüsselung","Segmentierung","Patching","Tokenisierung"], correct:1, expl:"<b>Segmentierung</b> teilt ein Netzwerk in separate Zonen, um den Zugriff zwischen ihnen einzuschränken — genau das gewünschte Ergebnis. Verschlüsselung schützt Daten inhaltlich, nicht netzwerktechnisch, Patching schließt Schwachstellen, und Tokenisierung ersetzt sensible Werte durch Platzhalter."},
+
+{domain:"Security Architecture", q:"Welcher häufigste Weg des Datenverlusts besteht bei einem vollständig vom Netzwerk getrennten (Air-Gapped) System?", options:["Bastion Host","Ungesichertes Bluetooth","Unpatched OS","Wechseldatenträger (Removable Devices)"], correct:3, expl:"<b>Wechseldatenträger</b> wie USB-Sticks sind bei Air-Gapped-Systemen der häufigste Übertragungsweg, da keine Netzwerkverbindung zum Exfiltrieren besteht. Ein Bastion Host setzt Netzwerkzugriff voraus, ungesichertes Bluetooth ebenso, und ein ungepatchtes OS ist zwar ein Risiko, aber kein direkter 'Datenverlustpfad' ohne physischen oder drahtlosen Übertragungsweg."},
+
+{domain:"Security Architecture", q:"Welche Lösung schützt eine internetseitige Webanwendung am effektivsten gegen Angriffe wie SQL Injection und Cross-Site Scripting auf Anwendungsebene?", options:["NGFW","WAF","TLS","SD-WAN"], correct:1, expl:"<b>Eine Web Application Firewall (WAF)</b> analysiert HTTP/HTTPS-Traffic auf Anwendungsebene und filtert bekannte Angriffsmuster wie SQLi oder XSS gezielt heraus. Eine NGFW arbeitet eher auf Netzwerk-/Anwendungsschicht allgemein, TLS verschlüsselt nur die Übertragung, und SD-WAN optimiert den Netzwerkpfad ohne Anwendungsschutz."},
+
+{domain:"Security Architecture", q:"Welches Protokoll wird typischerweise für einen sicheren, verschlüsselten Remote-Zugriff eines externen Beraters auf eine Kundenumgebung verwendet?", options:["EAP","DHCP","IPSec","NAT"], correct:2, expl:"<b>IPSec</b> wird häufig zum Aufbau sicherer, verschlüsselter VPN-Tunnel für Remote-Zugriffe genutzt. EAP ist ein Authentifizierungs-Framework (oft in WLANs), DHCP vergibt IP-Adressen, und NAT übersetzt Adressen, bietet aber keine Verschlüsselung."},
+
+{domain:"Security Architecture", q:"Welche Maßnahme sollte bei der Härtung eines Routers nach einem Schwachstellen-Scan vorrangig deaktiviert werden, wenn sie nicht zwingend benötigt wird?", options:["Konsolenzugriff","Routing-Protokolle","VLANs","Web-basierte Administration"], correct:3, expl:"<b>Web-basierte Administrationsoberflächen</b> sind ein häufiges Angriffsziel und sollten deaktiviert werden, wenn Verwaltung z. B. über SSH/Konsole erfolgt. Konsolenzugriff wird oft für die eigentliche Verwaltung benötigt, Routing-Protokolle sind für die Funktion essenziell, und VLANs dienen der Segmentierung und sollten nicht einfach deaktiviert werden."},
+
+{domain:"Security Architecture", q:"Welche Sicherheitslösung überwacht kontinuierlich Änderungen an kritischen Systemdateien und alarmiert bei unautorisierten Modifikationen?", options:["SPF","GPO","NAC","FIM"], correct:3, expl:"<b>File Integrity Monitoring (FIM)</b> überwacht gezielt Änderungen an wichtigen Dateien und schlägt bei unerwarteten Modifikationen Alarm. SPF authentifiziert E-Mail-Absender, GPO verwaltet Windows-Richtlinien, und NAC kontrolliert den Netzwerkzugang von Geräten."},
+
+{domain:"Security Architecture", q:"Welches Sicherheitsdesign-Prinzip sollte bei sicherheitskritischen physischen Zugangskontrollen (z. B. Notausgängen) beachtet werden, um Menschenleben im Notfall nicht zu gefährden?", options:["Alle Zugänge sollten grundsätzlich fail-closed sein","Sicherheitsrelevante physische Kontrollen sollten im Notfall fail-open sein","Logische Zugriffskontrollen sollten immer fail-open sein","Protokollierung sollte im Notfall deaktiviert werden"], correct:1, expl:"<b>Sicherheitsrelevante physische Kontrollen</b> (z. B. elektronische Türschlösser bei Feueralarm) sollten fail-open sein, damit Menschen im Notfall entkommen können — Sicherheit für Leben geht vor Zugriffsschutz. Logische Zugriffskontrollen sollten hingegen eher fail-closed sein, um Datenschutz zu wahren, und Protokollierung sollte gerade im Notfall aktiv bleiben."},
+
+{domain:"Security Architecture", q:"Welche Lösung ermöglicht es, dass ein Nutzer sich einmalig anmeldet und danach automatisch bei mehreren verbundenen Diensten authentifiziert ist, ohne erneut Zugangsdaten einzugeben?", options:["MFA","SSO","PEAP","LEAP"], correct:1, expl:"<b>Single Sign-On (SSO)</b> ermöglicht genau dieses Verhalten und reduziert die Anzahl separat zu verwaltender Zugangsdaten. MFA fügt zusätzliche Authentifizierungsfaktoren hinzu, ändert aber nicht die Anzahl nötiger Logins, und PEAP/LEAP sind WLAN-Authentifizierungsprotokolle ohne SSO-Funktion."},
+
+{domain:"Security Architecture", q:"Welche Technologie schützt am besten gegen den unautorisierten Ausbruch eines Prozesses aus einer virtuellen Maschine in das zugrunde liegende Hostsystem?", options:["Hypervisor-Härtung","Anwendungsallowlisting","Netzwerksegmentierung","Data Loss Prevention"], correct:0, expl:"<b>Hypervisor-Härtung</b> (Patches, minimale Angriffsfläche, Isolationseinstellungen) reduziert direkt das Risiko eines VM-Escapes. Anwendungsallowlisting betrifft ausführbare Programme, Netzwerksegmentierung schützt Netzwerkverkehr, und DLP verhindert Datenabfluss — keines davon adressiert direkt die Hypervisor-Isolation."},
+
+{domain:"Security Architecture", q:"Ein Unternehmen betreibt IaaS-Cloud-Ressourcen. Wer ist gemäß Shared-Responsibility-Modell in der Regel für die Absicherung der eigenen Datenbankinhalte verantwortlich?", options:["Der Cloud-Anbieter","Der Kunde (Client)","Ein zufällig zugewiesener Drittanbieter","Ausschließlich der Datenbankadministrator des Anbieters"], correct:1, expl:"<b>Im IaaS-Modell</b> stellt der Anbieter nur die Infrastruktur bereit; für Betriebssystem, Anwendungen und Daten — einschließlich Datenbankinhalten — ist der Kunde verantwortlich. Der Cloud-Anbieter sichert primär die physische Infrastruktur und Virtualisierungsschicht ab, nicht die Kundendaten selbst."},
+
+{domain:"Security Architecture", q:"Welche Lösung reduziert am effektivsten die Angriffsfläche eines internetseitigen Remote-Desktop-Zugangs zu einem Produktionsnetzwerk?", options:["Den RDP-Port lediglich auf eine ungewöhnliche Portnummer ändern","Einen VPN-Zugang einrichten und den Jump-Server hinter die Firewall legen","Nur die Passwortlänge erhöhen","Einen Proxy für Webverbindungen einsetzen"], correct:1, expl:"<b>Ein VPN mit dahinterliegendem Jump-Server</b> stellt sicher, dass Remote-Desktop-Zugriffe nicht direkt aus dem Internet erreichbar sind, sondern erst nach VPN-Authentifizierung. Eine geänderte Portnummer bietet nur 'Security through obscurity', eine längere Passwortlänge allein schützt nicht vor offenem RDP-Zugang, und ein Web-Proxy betrifft nicht den RDP-Zugriff selbst."},
+
+{domain:"Security Architecture", q:"Welche Aussage zu Containern im Vergleich zu klassischen virtuellen Maschinen trifft zu?", options:["Container virtualisieren komplette Hardware inklusive eigenem Betriebssystemkern","Container teilen sich den Kernel des Hostbetriebssystems und sind dadurch leichtgewichtiger","Container bieten grundsätzlich eine stärkere Isolation als VMs","Container benötigen zwingend einen Type-1-Hypervisor"], correct:1, expl:"<b>Container</b> teilen sich den Kernel des Hosts und virtualisieren nur die Anwendungsebene, was sie leichtgewichtiger und schneller startbar macht als vollständige VMs. VMs virtualisieren dagegen komplette Hardware inklusive eigenem OS-Kernel, bieten dadurch oft stärkere Isolation, und Container benötigen keinen Type-1-Hypervisor, sondern eine Container-Runtime."},
+
+// ---------- Security Operations ----------
+{domain:"Security Operations", q:"Ein Techniker möchte ein hochpriorisiertes Patch auf ein Produktivsystem aufspielen. Was sollte als Erstes erfolgen?", options:["Das System vom Netzwerk trennen (Air Gap)","Das System in ein anderes Netzwerksegment verschieben","Ein Change-Request erstellen und genehmigen lassen","Den Patch sofort einspielen"], correct:2, expl:"<b>Ein genehmigter Change-Request</b> stellt sicher, dass die Änderung dokumentiert, geprüft und koordiniert erfolgt, bevor sie umgesetzt wird — selbst bei hoher Priorität. Ein Air Gap oder eine Segmentänderung sind keine Standardschritte vor einem Patch, und das sofortige Einspielen ohne Change-Management-Prozess erhöht das Risiko unerwarteter Ausfälle."},
+
+{domain:"Security Operations", q:"Warum sollte nach der Behebung von im Vulnerability Assessment gefundenen Schwachstellen ein erneuter Scan durchgeführt werden?", options:["Um einen Prüfbericht für Auditoren zu erstellen","Um zu verifizieren, dass die Schwachstellen tatsächlich behoben wurden","Um einen Penetrationstest einzuleiten","Um die Firewall-Regeln zu aktualisieren"], correct:1, expl:"<b>Ein erneuter Scan (Rescan)</b> bestätigt, dass die durchgeführten Korrekturmaßnahmen tatsächlich wirksam waren und die Schwachstellen beseitigt sind. Ein Auditbericht kann danach folgen, ist aber nicht der Hauptzweck, ein Penetrationstest ist ein separater, tiefergehender Test, und Firewall-Regeln stehen nicht direkt im Zusammenhang mit dem Rescan-Zweck."},
+
+{domain:"Security Operations", q:"Welche Phase des Incident-Response-Prozesses befasst sich mit der Festlegung von Rollen, Verantwortlichkeiten und Kommunikationswegen, bevor überhaupt ein Vorfall eintritt?", options:["Preparation (Vorbereitung)","Detection (Erkennung)","Containment (Eindämmung)","Lessons Learned (Nachbereitung)"], correct:0, expl:"<b>Preparation</b> umfasst alle vorbereitenden Maßnahmen wie Rollenverteilung, Playbooks und Kommunikationspläne, damit im Ernstfall schnell reagiert werden kann. Detection erkennt den Vorfall selbst, Containment dämmt ihn ein, und Lessons Learned erfolgt erst nach Abschluss des Vorfalls."},
+
+{domain:"Security Operations", q:"Ein Team führt eine Analyse durch, um herauszufinden, wie ein Angreifer ursprünglich in das Netzwerk eingedrungen ist. Warum ist diese Root-Cause-Analyse im Incident Response wichtig?", options:["Um IoCs für die weitere Untersuchung zu sammeln","Um herauszufinden, welche Systeme betroffen sind","Um jede Spur der Malware im Netzwerk restlos zu entfernen","Um zukünftige Vorfälle gleicher Art zu verhindern"], correct:3, expl:"<b>Das Hauptziel einer Root-Cause-Analyse</b> ist es, die zugrunde liegende Ursache zu verstehen, um vergleichbare zukünftige Vorfälle zu verhindern. Das Sammeln von IoCs, die Identifikation betroffener Systeme und die Malware-Entfernung sind Teilaufgaben anderer Phasen (Analyse bzw. Eradication), nicht der eigentliche Zweck der Root-Cause-Analyse."},
+
+{domain:"Security Operations", q:"Welches Verfahren stellt sicher, dass digitale Beweismittel während einer Untersuchung lückenlos dokumentiert und nicht manipuliert werden?", options:["E-Discovery","Chain of Custody","Legal Hold","Preservation"], correct:1, expl:"<b>Chain of Custody</b> dokumentiert lückenlos, wer wann auf ein Beweismittel zugegriffen hat, um dessen Integrität und Verwertbarkeit vor Gericht sicherzustellen. E-Discovery betrifft das Auffinden elektronischer Beweise, Legal Hold verhindert die Löschung relevanter Daten, und Preservation sichert Daten, ohne den vollständigen Nachweisprozess der Chain of Custody abzubilden."},
+
+{domain:"Security Operations", q:"Welche Lösung eignet sich am besten, um Endpunkte kontinuierlich auf unautorisierte Änderungen und verdächtige Software zu überwachen?", options:["Alle Systeme so konfigurieren, dass nur geplante Tasks geloggt werden","Gesamten ausgehenden Netzwerkverkehr sammeln und beobachten","Traffic anhand bekannter bösartiger Signaturen blockieren","Endpoint-Management-Software auf allen Systemen installieren"], correct:3, expl:"<b>Endpoint-Management- bzw. EDR-Software</b> überwacht direkt auf dem Endgerät Prozesse, Dateien und Konfigurationsänderungen in Echtzeit. Reines Task-Logging, Netzwerkverkehrsanalyse oder signaturbasiertes Blocken bieten jeweils nur einen Teilausschnitt und keine umfassende Endpunktüberwachung."},
+
+{domain:"Security Operations", q:"Ein SOC stellt fest, dass eine als 'bösartig' gemeldete Aktivität nach Prüfung tatsächlich normales Systemverhalten ist. Welche Maßnahme beschreibt das künftige Ignorieren dieser spezifischen, als harmlos bestätigten Aktivität?", options:["Tuning","Aggregating","Quarantining","Archiving"], correct:0, expl:"<b>Tuning</b> passt SIEM-/Erkennungsregeln an, um bekannte Fehlalarme (False Positives) künftig zu unterdrücken und die Alarmqualität zu verbessern. Aggregating fasst Logdaten zusammen, Quarantining isoliert tatsächlich bösartige Objekte, und Archiving speichert Daten langfristig, ohne die Erkennungsregeln anzupassen."},
+
+{domain:"Security Operations", q:"Ein Cyber-Operations-Team informiert einen Analysten über eine neue Angriffstaktik, für die noch keine SIEM-Alarme konfiguriert sind. Was sollte der Analyst tun, um dieses Verhalten proaktiv zu identifizieren?", options:["Digital Forensics","E-Discovery","Incident Response","Threat Hunting"], correct:3, expl:"<b>Threat Hunting</b> ist die proaktive, hypothesengetriebene Suche nach Bedrohungen, die von bestehenden automatisierten Regeln noch nicht erfasst werden. Digital Forensics untersucht nach einem Vorfall, E-Discovery betrifft rechtliche Beweissicherung, und Incident Response reagiert auf bereits erkannte Vorfälle, statt proaktiv nach unbekannten zu suchen."},
+
+{domain:"Security Operations", q:"Welche Automatisierungstechnik eignet sich am besten, um bei der Erstellung vieler neuer Benutzerkonten menschliche Fehler und Zeitaufwand zu reduzieren?", options:["Guard-Rail-Skript","Ticketing-Workflow","Eskalationsskript","User-Provisioning-Skript"], correct:3, expl:"<b>Ein User-Provisioning-Skript</b> automatisiert genau die Kontoerstellung inklusive korrekter Berechtigungsvergabe. Ein Guard-Rail-Skript verhindert riskante Konfigurationsänderungen, ein Ticketing-Workflow verwaltet Anfragen, und ein Eskalationsskript leitet Probleme an höhere Ebenen weiter, ohne selbst Konten anzulegen."},
+
+{domain:"Security Operations", q:"Ein Unternehmen richtet ein SIEM ein und lässt Logs wöchentlich von einem Analysten prüfen. Um welche Art von Kontrolle handelt es sich dabei primär?", options:["Korrektiv","Präventiv","Detektiv","Abschreckend (Deterrent)"], correct:2, expl:"<b>Detektiv</b> ist korrekt, da SIEM-Logs und deren Auswertung dazu dienen, bereits eingetretene oder laufende Aktivitäten zu erkennen. Korrektive Kontrollen beheben Schäden nach einem Vorfall, präventive verhindern ihn vorab, und abschreckende Kontrollen sollen potenzielle Angreifer von vornherein abhalten."},
+
+{domain:"Security Operations", q:"Welches Werkzeug liefert einem Analysten zusätzliche Details über eine verdächtige ausführbare Datei, die auf einem Firmenlaptop läuft und ungewöhnlichen Netzwerkverkehr erzeugt?", options:["Application-Log","IPS/IDS-Log","Netzwerk-Log","Endpoint-Log"], correct:3, expl:"<b>Endpoint-Logs</b> (bzw. EDR-Daten) liefern detaillierte Informationen über Prozesse, ausführbare Dateien und deren Verhalten direkt auf dem betroffenen Gerät. Application-Logs betreffen primär Softwareereignisse, IPS/IDS-Logs und Netzwerk-Logs zeigen Verkehrsmuster, liefern aber keine so detaillierten Prozessinformationen wie Endpoint-Daten."},
+
+{domain:"Security Operations", q:"Welche Maßnahme sollte vor der produktiven Anwendung einer neuen, potenziell risikoreichen Firewall-Regel ('deny any' am Ende der ACL) durchgeführt werden, um ungewollte Ausfälle zu vermeiden?", options:["Die Regel direkt in der Produktion aktivieren und beobachten","Die Regel zunächst in einer Nicht-Produktionsumgebung testen","Alle IPS-Signaturen vor Aktivierung deaktivieren","Eine 'allow any'-Regel oberhalb der neuen Regel einfügen"], correct:1, expl:"<b>Das Testen in einer Nicht-Produktionsumgebung</b> deckt unerwartete Auswirkungen auf, bevor die Regel produktiv geschaltet wird. Direktes Aktivieren in Produktion riskiert Ausfälle, das Deaktivieren von IPS-Signaturen schwächt die Sicherheit unnötig, und eine übergeordnete 'allow any'-Regel würde die neue Deny-Regel komplett wirkungslos machen."},
+
+{domain:"Security Operations", q:"Welche Aktivität im Incident-Response-Prozess beschreibt am besten das Verständnis darüber, woher ein Vorfall stammt und wie er abgelaufen ist?", options:["Analysis","Lessons Learned","Detection","Containment"], correct:0, expl:"<b>Analysis</b> umfasst die detaillierte Untersuchung der Vorfallsursprünge, des Angriffswegs und der Auswirkungen. Lessons Learned erfolgt nach Abschluss des Vorfalls, Detection ist die erste Erkennung, und Containment dämmt die Ausbreitung ein, ohne zwingend die vollständige Ursache zu klären."},
+
+{domain:"Security Operations", q:"Welche Methode eignet sich am besten, um täglich konsistent zu überprüfen, ob Sicherheitseinstellungen auf Servern unbemerkt verändert wurden?", options:["Automatisierte Konfigurationsprüfung","Eine Compliance-Checkliste auf Papier","Ein einmaliges Attestierungsverfahren","Manuelles Audit durch einen Mitarbeiter"], correct:0, expl:"<b>Automatisierung</b> (z. B. automatisierte Configuration-Compliance-Scans) ermöglicht konsistente, tägliche Prüfungen ohne menschlichen Aufwand und Fehleranfälligkeit. Papierbasierte Checklisten, einmalige Attestierungen und manuelle Audits sind zeitaufwendig, fehleranfällig und nicht für tägliche, konsistente Kontrolle geeignet."},
+
+{domain:"Security Operations", q:"Welches Tool eignet sich am besten, um zu erkennen, dass ein Mitarbeiter versehentlich eine Datei mit personenbezogenen Kundendaten per E-Mail verschickt hat?", options:["SCAP","NetFlow","Antivirus","DLP"], correct:3, expl:"<b>Data Loss Prevention (DLP)</b> überwacht gezielt den Abfluss sensibler Daten, etwa über E-Mail-Anhänge, und kann solche Vorgänge erkennen oder blockieren. SCAP automatisiert Sicherheitsbewertungen, NetFlow analysiert Verkehrsmuster ohne Inhaltsprüfung, und Antivirus erkennt Malware, nicht den Abfluss sensibler Inhalte."},
+
+{domain:"Security Operations", q:"Ein Unternehmen bemerkt verdächtige Anmeldeversuche aus ungewöhnlichen IP-Adressen bei mehreren Nutzerkonten. Nach Rücksprache stellt sich heraus, dass die Nutzer sich nicht von dort angemeldet haben. Welche langfristige Maßnahme verhindert diese Art von Angriff am besten?", options:["Multifaktor-Authentifizierung","Berechtigungszuweisung anpassen","Zugriffsmanagement einführen","Passwortkomplexität erhöhen"], correct:0, expl:"<b>Multifaktor-Authentifizierung</b> schützt selbst dann, wenn Zugangsdaten kompromittiert wurden, da ein zusätzlicher Faktor für den Login nötig ist. Reine Berechtigungsanpassung, generelles Zugriffsmanagement oder erhöhte Passwortkomplexität verhindern kompromittierte Logins mit bereits gestohlenen Zugangsdaten nicht so wirksam."},
+
+{domain:"Security Operations", q:"Welche forensische Aktivität stellt sicher, dass relevante Daten während eines laufenden Rechtsstreits nicht gelöscht werden dürfen?", options:["Legal Hold","Chain of Custody","E-Discovery","Data Retention Policy"], correct:0, expl:"<b>Legal Hold (Beweissicherungspflicht)</b> verpflichtet ein Unternehmen, relevante Daten während eines laufenden oder erwarteten Rechtsstreits aufzubewahren und nicht zu löschen. Chain of Custody dokumentiert den Umgang mit Beweismitteln, E-Discovery bezeichnet das Auffinden elektronischer Beweise, und eine Data Retention Policy regelt allgemeine Aufbewahrungsfristen unabhängig von akuten Rechtsstreitigkeiten."},
+
+{domain:"Security Operations", q:"Welches Verfahren wird eingesetzt, um herauszufinden, ob eine gemeldete Schwachstelle in einem Scan-Bericht tatsächlich ausnutzbar ist, bevor Ressourcen in die Behebung investiert werden?", options:["Ein manueller Validierungstest/Verifikation der Schwachstelle","Sofortiges Patchen ohne weitere Prüfung","Ignorieren des Befundes bis zum nächsten Scan","Eskalation direkt an das Management ohne technische Prüfung"], correct:0, expl:"<b>Eine manuelle Validierung</b> (z. B. gezielter Test) bestätigt, ob eine gemeldete Schwachstelle real und ausnutzbar ist oder ein False Positive darstellt. Sofortiges Patchen ohne Prüfung verschwendet ggf. Ressourcen bei False Positives, Ignorieren ist riskant bei echten Schwachstellen, und eine Eskalation ohne technische Prüfung liefert dem Management keine fundierte Entscheidungsgrundlage."},
+
+{domain:"Security Operations", q:"Welche Reaktion ist am sinnvollsten, wenn der Klickrate-Wert bei einer Phishing-Simulation den akzeptablen Risiko-Schwellenwert überschreitet und die Auswirkungen eines Klicks reduziert werden sollen (nicht die Klickrate selbst)?", options:["Poster zur Sensibilisierung im Büro aufhängen","E-Mail-Sicherheitsfilter verschärfen, um Phishing-Mails gar nicht erst zuzustellen","EDR-Richtlinien anpassen, um automatische Ausführung heruntergeladener Programme zu blockieren","Zusätzliche Schulungen zur Erkennung von Phishing anbieten"], correct:2, expl:"<b>Angepasste EDR-Richtlinien</b>, die die automatische Ausführung heruntergeladener Programme blockieren, reduzieren gezielt die <i>Auswirkung</i> eines erfolgreichen Klicks. Poster und Schulungen zielen auf die Reduktion der Klickrate selbst, und verschärfte E-Mail-Filter verhindern die Zustellung, adressieren aber nicht die Folge eines bereits erfolgten Klicks."},
+
+// ---------- Governance, Risk & Compliance / Program Management ----------
+{domain:"Governance & Risk", q:"Ein Unternehmen kauft eine Cyber-Versicherung, um finanzielle Auswirkungen eines im Risikoregister gelisteten Risikos abzufedern. Welche Risikobehandlungsstrategie beschreibt dies?", options:["Akzeptieren","Transferieren","Mindern","Vermeiden"], correct:1, expl:"<b>Transferieren (Risk Transfer)</b> verlagert die finanzielle Last eines Risikos auf einen Dritten, hier eine Versicherung. Akzeptieren bedeutet, das Risiko bewusst zu tragen, Mindern reduziert die Eintrittswahrscheinlichkeit oder Auswirkung durch eigene Maßnahmen, und Vermeiden eliminiert die risikobehaftete Aktivität vollständig."},
+
+{domain:"Governance & Risk", q:"Welches Dokument beschreibt die genauen Bedingungen, den Umfang und die Regeln eines Penetrationstests, den ein externer Dienstleister durchführt?", options:["Supply Chain Analysis","Rules of Engagement","Right to Audit Clause","Due Diligence"], correct:1, expl:"<b>Rules of Engagement</b> legen exakt fest, was während eines Penetrationstests erlaubt ist, welche Systeme getestet werden dürfen und welche Grenzen gelten. Eine Supply-Chain-Analyse bewertet Lieferkettenrisiken, eine Right-to-Audit-Klausel erlaubt vertragliche Prüfungen, und Due Diligence beschreibt die allgemeine Sorgfaltsprüfung vor einer Geschäftsbeziehung."},
+
+{domain:"Governance & Risk", q:"Welches Dokument enthält typischerweise eine Schätzung der benötigten Stunden für ein Projekt wie einen Penetrationstest?", options:["SOW (Statement of Work)","BPA (Business Partnership Agreement)","SLA (Service Level Agreement)","NDA (Non-Disclosure Agreement)"], correct:0, expl:"<b>Ein SOW</b> beschreibt den konkreten Projektumfang inklusive Zeitschätzung, Liefergegenständen und Kosten. Ein BPA regelt die generelle Geschäftsbeziehung zwischen Partnern, ein SLA definiert Leistungsniveaus im laufenden Betrieb, und ein NDA schützt vertrauliche Informationen, ohne Projektstunden festzulegen."},
+
+{domain:"Governance & Risk", q:"Welches Dokument wird am ehesten verwendet, um Projektkosten, -umfang und Zeitrahmen für einen Kunden verständlich darzustellen?", options:["MSA","SLA","BPA","SOW"], correct:3, expl:"<b>Das SOW (Statement of Work)</b> beschreibt konkret Projektumfang, Kosten und Zeitrahmen für ein spezifisches Vorhaben. Ein MSA regelt die generellen Vertragsbedingungen einer langfristigen Zusammenarbeit, ein SLA definiert Leistungskennzahlen, und ein BPA regelt die Beziehung zwischen Geschäftspartnern allgemein."},
+
+{domain:"Governance & Risk", q:"Welches Konzept beschreibt die maximale zulässige Höhe eines akzeptierten Risikos innerhalb einer Organisation?", options:["Risk Indicator","Risk Level","Risk Score","Risk Threshold"], correct:3, expl:"<b>Risk Threshold (Risikoschwelle)</b> definiert die Grenze, bis zu der ein Risiko als akzeptabel gilt. Ein Risk Indicator warnt vor sich entwickelnden Risiken, Risk Level beschreibt die aktuelle Einstufung eines konkreten Risikos, und Risk Score ist ein numerischer Bewertungswert, aber keine festgelegte Obergrenze."},
+
+{domain:"Governance & Risk", q:"Welches Dokument dient dazu, Risiken, verantwortliche Personen und Schwellenwerte systematisch zu dokumentieren?", options:["Risk Tolerance","Risk Transfer","Risk Register","Risk Analysis"], correct:2, expl:"<b>Ein Risk Register</b> ist die zentrale, strukturierte Dokumentation aller identifizierten Risiken samt Verantwortlichkeiten und Schwellenwerten. Risk Tolerance beschreibt die generelle Risikobereitschaft, Risk Transfer ist eine Behandlungsstrategie, und Risk Analysis ist der Prozess der Risikobewertung selbst, nicht das Dokumentationswerkzeug."},
+
+{domain:"Governance & Risk", q:"Ein Unternehmen reduziert die Kosten seiner Cyber-Versicherung, indem es den Schutz gegen Ransomware-Angriffe herausnimmt. Welches Analyseelement hat höchstwahrscheinlich zu dieser Entscheidung geführt?", options:["MTTR","RTO","ARO (Annualized Rate of Occurrence)","MTBF"], correct:2, expl:"<b>ARO</b> schätzt, wie oft ein bestimmtes Ereignis (hier Ransomware) statistisch pro Jahr eintritt, und fließt direkt in die Kosten-Nutzen-Abwägung von Versicherungsschutz ein. MTTR misst die Reparaturzeit, RTO die maximale Wiederherstellungszeit, und MTBF die durchschnittliche Zeit zwischen Ausfällen — alle drei sind weniger direkt mit der Versicherungsentscheidung verknüpft."},
+
+{domain:"Governance & Risk", q:"Welches Dokument ist für die Ermittlung der Anzahl benötigter Mitarbeiter zur Aufrechterhaltung des Geschäftsbetriebs im Störungsfall am relevantesten?", options:["Capacity Planning","Redundanz","Geografische Verteilung","Tabletop-Übung"], correct:0, expl:"<b>Capacity Planning</b> bestimmt konkret, wie viele Ressourcen (inkl. Personal) notwendig sind, um den Betrieb während einer Störung aufrechtzuerhalten. Redundanz und geografische Verteilung betreffen eher technische/physische Ausfallsicherheit, und eine Tabletop-Übung testet Pläne, ermittelt aber keinen konkreten Personalbedarf."},
+
+{domain:"Governance & Risk", q:"Ein Unternehmen möchte sicherstellen, dass sensible Dokumente in einer SaaS-Anwendung nicht aus Hochrisikoländern abgerufen werden können. Welche Maßnahme ist dafür am effektivsten?", options:["Data Masking","Verschlüsselung","Geolocation Policy","Data Sovereignty Regulation befolgen"], correct:2, expl:"<b>Eine Geolocation Policy</b> beschränkt den Zugriff aktiv basierend auf dem geografischen Standort der Anfrage. Data Masking verändert die Daten selbst, Verschlüsselung schützt Inhalte, verhindert aber nicht den Zugriffsversuch aus bestimmten Ländern, und die reine Einhaltung von Data-Sovereignty-Vorgaben beschreibt eine rechtliche Verpflichtung, keine technische Zugriffskontrolle."},
+
+{domain:"Governance & Risk", q:"Welche Datenklassifizierung ist am ehesten für Patientendaten in einem Krankenhaus zutreffend?", options:["Private","Critical","Sensitive","Public"], correct:2, expl:"<b>Sensitive</b> ist die typische Klassifizierung für besonders schützenswerte Daten wie Gesundheitsdaten, die strengen regulatorischen Anforderungen (z. B. Datenschutz) unterliegen. 'Private' ist weniger präzise für regulierte Gesundheitsdaten, 'Critical' beschreibt eher Systemrelevanz für den Betrieb, und 'Public' bezeichnet frei zugängliche Daten."},
+
+{domain:"Governance & Risk", q:"Welche Aussage beschreibt korrekt, wen eine Datenschutz-Grundverordnung (bzw. vergleichbare Regelung) als 'betroffene Person' (Data Subject) bezeichnet?", options:["Die Abteilung, die Daten sammelt und verarbeitet","Den Cloud-Anbieter, der Daten hostet","Die Person, auf die sich die personenbezogenen Daten beziehen","Den IT-Administrator, der die Daten technisch sichert"], correct:2, expl:"<b>Data Subject (betroffene Person)</b> ist die Person, deren personenbezogene Daten verarbeitet werden — z. B. der Kunde. Die verarbeitende Abteilung wäre eher Data Processor/Controller, der Cloud-Anbieter oft Data Custodian, und der Administrator übernimmt technische Sicherungsaufgaben, ist aber nicht die betroffene Person selbst."},
+
+{domain:"Governance & Risk", q:"Warum sollte ein US-amerikanischer Cloud-Hosting-Anbieter bei der Expansion in neue internationale Standorte zuerst lokale Datenschutzvorgaben prüfen?", options:["Weil Zeitzonenunterschiede die Log-Korrelation erschweren","Weil lokale Datenschutzregularien die Art der zulässigen Datenverarbeitung direkt bestimmen","Weil ausländische Hacker ein höheres Risiko darstellen","Weil bestehende Verträge davon unberührt bleiben"], correct:1, expl:"<b>Lokale Datenschutzregulierungen</b> (z. B. zur Datenresidenz oder -verarbeitung) können den Betrieb rechtlich unmöglich machen oder erheblich einschränken und müssen daher vorrangig geprüft werden. Zeitzonen, das allgemeine Hacker-Risiko und bestehende Verträge sind zwar relevant, aber nicht die vorrangige, oft geschäftskritische Prüfung bei internationaler Expansion."},
+
+{domain:"Governance & Risk", q:"Welche Maßnahme sollte als Erstes erfolgen, bevor eine DLP-Lösung zur Verhinderung von Datenexfiltration implementiert wird?", options:["Zugriff auf Cloud-Speicher-Websites blockieren","Eine Regel zum Blockieren aller ausgehenden E-Mail-Anhänge erstellen","Daten klassifizieren","Alle Benutzerberechtigungen auf Dateifreigaben entfernen"], correct:2, expl:"<b>Die Datenklassifizierung</b> muss zuerst erfolgen, damit die DLP-Lösung überhaupt erkennen kann, welche Daten als sensibel gelten und geschützt werden müssen. Das Blockieren von Cloud-Websites, E-Mail-Anhängen oder sämtlichen Berechtigungen ohne vorherige Klassifizierung wäre unpräzise und würde den Geschäftsbetrieb unnötig einschränken."},
+
+{domain:"Governance & Risk", q:"Welche Datenrichtlinie befasst sich damit, Transaktionsdaten für die vom Gesetz vorgeschriebene Dauer aufzubewahren?", options:["Compromise","Retention","Analysis","Transfer"], correct:1, expl:"<b>Retention (Aufbewahrung)</b> regelt genau, wie lange bestimmte Datenkategorien aus rechtlichen oder regulatorischen Gründen aufbewahrt werden müssen. Compromise beschreibt eine Kompromittierung, Analysis die Auswertung von Daten, und Transfer den Austausch bzw. die Übertragung von Daten an Dritte."},
+
+{domain:"Governance & Risk", q:"Welche Praxis schützt am effektivsten davor, dass ein Insider absichtlich bösartigen Code in den Entwicklungsprozess einschleust?", options:["Code-Scanning auf Schwachstellen","Verwendung von Open-Source-Komponenten","Qualitätssicherungstests","Peer Review und Freigabeprozess"], correct:3, expl:"<b>Peer Review und ein Freigabeprozess</b> stellen sicher, dass Code-Änderungen von mindestens einer weiteren Person geprüft werden, bevor sie übernommen werden — das erschwert gezielt böswillige Einzelaktionen. Automatisiertes Code-Scanning findet primär bekannte Schwachstellenmuster, keine absichtlich getarnte Logik, Open-Source-Nutzung ist neutral, und QS-Tests prüfen Funktionalität, nicht zwingend böswillige Absicht."},
+
+{domain:"Governance & Risk", q:"Welcher Grund ist am wahrscheinlichsten der Hauptantrieb für ein regelmäßiges, verpflichtendes Audit in einer Bankenumgebung?", options:["Regulatorische Anforderung","Organisatorische Veränderung","Freiwillige Selbstbewertung","Service-Level-Anforderung"], correct:0, expl:"<b>Regulatorische Anforderungen</b> (z. B. durch Finanzaufsichtsbehörden) verpflichten Banken meist gesetzlich zu regelmäßigen Audits. Organisatorische Veränderungen können Anlass für zusätzliche Prüfungen sein, sind aber nicht der Hauptgrund, ebenso sind freiwillige Selbstbewertungen und SLA-Anforderungen nicht die primäre Triebkraft in stark regulierten Branchen wie dem Bankwesen."},
+
+{domain:"Governance & Risk", q:"Welches Sicherheitskonzept wird am besten durch das Prinzip der geringstmöglichen Rechtevergabe auf einer HR-Dateifreigabe unterstützt?", options:["Integrität","Verfügbarkeit","Vertraulichkeit","Nichtabstreitbarkeit"], correct:2, expl:"<b>Vertraulichkeit</b> wird direkt unterstützt, da Least Privilege den Kreis der Personen mit Zugriff auf sensible HR-Daten minimiert. Integrität betrifft die Unverändertheit der Daten, Verfügbarkeit den Zugriff bei Bedarf, und Nichtabstreitbarkeit die Zurechenbarkeit von Handlungen — keines davon ist der primäre Nutzen von Least Privilege in diesem Kontext."},
+
+{domain:"Governance & Risk", q:"Welche zwei Fälle rechtfertigen am ehesten die Außerbetriebnahme (Decommissioning) eines Netzwerkgeräts?", options:["Das Gerät wird in ein anderes Rechenzentrum verlegt / Das Gerät wird in ein Testsegment verschoben","Das Verschlüsselungsniveau erfüllt nicht mehr die Unternehmensstandards / Das Gerät kann keine autorisierten Updates mehr empfangen","Das Gerät wird in ein isoliertes Netzwerksegment verschoben / Es wird ein neuer Standort zugewiesen","Es wird ein Software-Update eingespielt / Ein Wartungsfenster steht an"], correct:1, expl:"<b>Unzureichendes Verschlüsselungsniveau</b> und die <b>Unfähigkeit, autorisierte Updates zu empfangen</b>, sind klassische Gründe für eine Außerbetriebnahme, da solche Geräte dauerhafte, nicht behebbare Sicherheitsrisiken darstellen. Reine Standort- oder Segmentverschiebungen sowie normale Updates/Wartungsfenster sind hingegen kein Grund, ein Gerät komplett stillzulegen."},
+
+{domain:"Governance & Risk", q:"Welches Element sollte laut Shared-Responsibility-Modell in einem SaaS-Modell in der Regel vollständig beim Anbieter liegen?", options:["Konfiguration der Nutzerrollen innerhalb der Anwendung","Absicherung der zugrunde liegenden Infrastruktur und Plattform","Klassifizierung der vom Kunden eingegebenen Daten","Festlegung interner Zugriffsrichtlinien des Kunden"], correct:1, expl:"<b>Im SaaS-Modell</b> übernimmt der Anbieter die Verantwortung für Infrastruktur, Plattform und die Anwendung selbst. Die Konfiguration von Nutzerrollen, die Klassifizierung eigener Daten und interne Zugriffsrichtlinien bleiben typischerweise Aufgabe des Kunden, auch wenn die zugrunde liegende Technik vom Anbieter betrieben wird."},
+
+{domain:"Governance & Risk", q:"Welche Aussage zum Unterschied zwischen einer Schwachstellenbewertung (Vulnerability Assessment) und einem Penetrationstest trifft am ehesten zu?", options:["Beide sind technisch identisch und unterscheiden sich nur im Namen","Eine Schwachstellenbewertung identifiziert potenzielle Schwachstellen, ein Penetrationstest versucht diese aktiv auszunutzen","Ein Penetrationstest wird ausschließlich automatisiert durchgeführt","Eine Schwachstellenbewertung ersetzt die Notwendigkeit von Patches"], correct:1, expl:"<b>Richtig:</b> Eine Schwachstellenbewertung scannt und listet potenzielle Schwachstellen auf, während ein Penetrationstest aktiv versucht, diese auszunutzen, um reale Auswirkungen zu demonstrieren. Beide sind methodisch unterschiedlich, Penetrationstests erfolgen meist manuell mit Automatisierungsunterstützung, und keine der beiden Methoden ersetzt das eigentliche Patchen von Systemen."},
+
+{domain:"Governance & Risk", q:"Welches Element eines Security-Awareness-Programms wird am ehesten als 'Kommunikationselement' betrachtet, im Gegensatz zu einer technischen Kontrolle?", options:["Erkennung von Insider-Bedrohungen über Verhaltensanalyse","Melden von Phishing-Versuchen oder verdächtigen Aktivitäten durch Mitarbeitende","Durchführung von Social Engineering im Rahmen von Penetrationstests durch Dritte","Verifizierung von Informationen bei Änderungen von Überweisungsdaten"], correct:1, expl:"<b>Das Melden von Phishing-Versuchen</b> durch Mitarbeitende ist ein klassisches, auf Kommunikation und Sensibilisierung basierendes Element eines Awareness-Programms. Verhaltensanalyse ist eine technische Erkennungsmaßnahme, Social-Engineering-Tests sind eine Testmethode Dritter, und die Verifizierung von Überweisungsdaten ist ein Prozessschritt, kein primäres Kommunikationselement der Schulung."},
+
+{domain:"Governance & Risk", q:"Welche Aussage zur Rolle 'Data Owner' im Datenmanagement trifft am ehesten zu?", options:["Der Data Owner ist immer identisch mit dem Cloud-Anbieter","Der Data Owner trägt die letztendliche Verantwortung für die Klassifizierung und den Schutz bestimmter Daten","Der Data Owner ist ausschließlich für die technische Speicherung der Daten zuständig","Der Data Owner hat keine Verantwortung, sobald Daten in der Cloud liegen"], correct:1, expl:"<b>Der Data Owner</b> trägt die geschäftliche Verantwortung für die korrekte Klassifizierung, den Schutzbedarf und die Freigabe von Zugriff auf bestimmte Daten — unabhängig davon, wo sie technisch gespeichert sind. Der Cloud-Anbieter ist meist eher Data Custodian, die technische Speicherung obliegt IT-Teams, und die Verantwortung des Data Owners endet nicht durch Cloud-Nutzung."},
+
+{domain:"Governance & Risk", q:"Ein Unternehmen möchte vertraglich sicherstellen, dass es das Recht hat, die Sicherheitspraktiken eines Cloud-Dienstleisters unabhängig zu überprüfen. Welche Vertragsklausel ist dafür relevant?", options:["Non-Disclosure Agreement","Right to Audit Clause","Service Level Agreement","Business Partnership Agreement"], correct:1, expl:"<b>Eine Right-to-Audit-Klausel</b> räumt dem Kunden vertraglich das Recht ein, die Sicherheitspraktiken des Anbieters zu überprüfen oder überprüfen zu lassen. Ein NDA schützt vertrauliche Informationen, ein SLA definiert Leistungskennzahlen, und ein BPA regelt die generelle Geschäftsbeziehung, ohne notwendigerweise ein Prüfrecht einzuräumen."},
+
+{domain:"Governance & Risk", q:"Welche Kennzahl beschreibt die maximal tolerierbare Zeitspanne, innerhalb derer ein System nach einem Ausfall wieder verfügbar sein muss?", options:["RPO (Recovery Point Objective)","RTO (Recovery Time Objective)","MTBF (Mean Time Between Failures)","ARO (Annualized Rate of Occurrence)"], correct:1, expl:"<b>RTO</b> definiert die maximal akzeptable Ausfallzeit, bis ein System wiederhergestellt sein muss. RPO beschreibt stattdessen den maximal tolerierbaren Datenverlust in Zeiteinheiten, MTBF misst die durchschnittliche Zeit zwischen Ausfällen im laufenden Betrieb, und ARO schätzt die jährliche Eintrittshäufigkeit eines Ereignisses."},
+
+{domain:"Governance & Risk", q:"Ein Unternehmen plant einen neuen Backup-Standort mit Fokus auf Kosteneffizienz, wobei ein RTO/RPO von etwa zwei Tagen akzeptabel ist. Welcher Standorttyp passt am besten?", options:["Hot Site","Warm Site","Cold Site","Real-Time-Recovery-Standort"], correct:1, expl:"<b>Eine Warm Site</b> bietet einen guten Mittelweg zwischen Kosten und Wiederherstellungszeit und passt zu einem akzeptablen RTO/RPO von rund zwei Tagen. Eine Hot Site wäre nahezu sofort verfügbar, aber deutlich teurer, eine Cold Site benötigt oft deutlich länger als zwei Tage, und ein 'Real-Time-Recovery-Standort' ist kein etabliertes Standortkonzept in diesem Kontext."},
+
+{domain:"Governance & Risk", q:"Welche Praxis beschreibt am besten die sichere, endgültige Entfernung von Daten von Festplatten vor der Entsorgung oder dem Recycling ausgemusterter Systeme?", options:["Enumeration","Sanitization (Bereinigung)","Destruction (Zerstörung)","Inventory"], correct:1, expl:"<b>Sanitization</b> beschreibt Verfahren (z. B. sicheres Löschen/Überschreiben), mit denen Daten so entfernt werden, dass sie nicht wiederherstellbar sind, ohne das Gerät zwangsläufig physisch zu zerstören. Enumeration ist ein Aufklärungsschritt bei Angriffen, Destruction bedeutet die physische Zerstörung des Datenträgers selbst, und Inventory betrifft die Bestandsverwaltung, nicht die Datenentfernung."},
+
+{domain:"Governance & Risk", q:"Welche Aussage zu Business Impact Analysis (BIA) trifft am ehesten zu?", options:["Sie ersetzt die Notwendigkeit eines Disaster-Recovery-Plans vollständig","Sie identifiziert kritische Geschäftsprozesse und deren Wiederherstellungsprioritäten im Störungsfall","Sie ist ausschließlich für IT-Systeme relevant, nicht für Geschäftsprozesse","Sie wird nur einmalig zu Beginn eines Unternehmens durchgeführt"], correct:1, expl:"<b>Eine BIA</b> bewertet, welche Geschäftsprozesse kritisch sind und wie schnell sie im Störungsfall wiederhergestellt werden müssen, und liefert damit die Grundlage für RTO/RPO-Festlegungen. Sie ersetzt keinen DR-Plan, sondern ist dessen Grundlage, betrifft nicht nur IT-Systeme, sondern das gesamte Geschäft, und sollte regelmäßig aktualisiert, nicht nur einmalig durchgeführt werden."},
+
+{domain:"Governance & Risk", q:"Welche Vorgehensweise entspricht am ehesten dem Prinzip 'Security by Design' bei der Entwicklung einer neuen Anwendung?", options:["Sicherheitsprüfungen erst kurz vor dem Produktivstart durchführen","Sicherheitsanforderungen von Beginn an in jede Phase des Entwicklungsprozesses integrieren","Sicherheitsmaßnahmen ausschließlich dem Betriebsteam nach der Übergabe überlassen","Sicherheitsfragen nur bei gemeldeten Vorfällen berücksichtigen"], correct:1, expl:"<b>Security by Design</b> bedeutet, Sicherheitsanforderungen von Anfang an in Anforderungsanalyse, Architektur, Entwicklung und Test einzubeziehen, statt sie nachträglich anzuflicken. Sicherheitsprüfungen erst kurz vor Launch, die alleinige Verantwortung beim Betriebsteam oder reine Reaktion auf Vorfälle widersprechen diesem präventiven Grundgedanken."},
+
+{domain:"Governance & Risk", q:"Welches Konzept beschreibt die vertragliche Vereinbarung zwischen zwei Unternehmen über gemeinsame Verantwortlichkeiten im Rahmen einer Geschäftsbeziehung, jedoch ohne feste Leistungskennzahlen wie bei einem SLA?", options:["MSA (Master Service Agreement)","SOW","NDA","BPA (Business Partnership Agreement)"], correct:3, expl:"<b>Ein BPA</b> regelt die grundsätzliche Zusammenarbeit und Aufgabenverteilung zwischen Geschäftspartnern, ohne notwendigerweise konkrete Leistungskennzahlen festzulegen. Ein MSA regelt übergreifende Vertragsbedingungen für wiederkehrende Projekte, ein SOW beschreibt ein konkretes Einzelprojekt, und ein NDA schützt ausschließlich vertrauliche Informationen."},
+];
+
+/* ============================================================
+   QUIZ ENGINE
+   ============================================================ */
+let session = { mode:null, questions:[], index:0, correctCount:0, wrongList:[] };
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function startQuiz(mode){
+  const count = mode === 'exam' ? 90 : 20;
+  const pool = shuffle(BANK);
+  const picked = pool.slice(0, Math.min(count, pool.length));
+  // if exam mode needs more than pool size, refill by looping shuffled bank
+  while(picked.length < count){
+    picked.push(...shuffle(BANK).slice(0, count - picked.length));
+  }
+  session = { mode, questions: picked, index:0, correctCount:0, wrongList:[] };
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('summary-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  document.getElementById('modeBadge').textContent = mode === 'exam' ? 'PRÜFUNGSMODUS' : 'TUTOR-MODUS';
+  renderQuestion();
+}
+
+function goHome(){
+  document.getElementById('summary-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('start-screen').classList.remove('hidden');
+  document.getElementById('modeBadge').textContent = 'SY0-701 ÜBUNG';
+}
+
+function renderQuestion(){
+  const q = session.questions[session.index];
+  const total = session.questions.length;
+
+  document.getElementById('progressFill').style.width = ((session.index)/total*100) + '%';
+  document.getElementById('progressLabel').textContent = (session.index+1) + ' / ' + total;
+  document.getElementById('scoreLive').textContent = session.correctCount + ' richtig';
+
+  document.getElementById('qDomain').textContent = q.domain;
+  document.getElementById('qText').textContent = q.q;
+
+  const optWrap = document.getElementById('qOptions');
+  optWrap.innerHTML = '';
+  const letters = ['A','B','C','D','E','F'];
+
+  q.options.forEach((optText, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.innerHTML = '<span class="letter">'+letters[idx]+'</span><span>'+optText+'</span>';
+    btn.onclick = () => selectAnswer(idx);
+    optWrap.appendChild(btn);
+  });
+
+  document.getElementById('qFeedback').classList.remove('show','right','wrong');
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('nextBtn').textContent = (session.index === total-1) ? 'Auswertung ansehen' : 'Weiter';
+}
+
+function selectAnswer(idx){
+  const q = session.questions[session.index];
+  const optWrap = document.getElementById('qOptions');
+  const opts = optWrap.querySelectorAll('.opt');
+
+  // lock all
+  opts.forEach((o, i) => {
+    o.classList.add('locked');
+    o.onclick = null;
+    if(i === q.correct) o.classList.add('correct');
+    if(i === idx && idx !== q.correct) o.classList.add('wrong');
+    if(i !== idx && i !== q.correct) o.classList.add('dim');
+  });
+
+  const isRight = idx === q.correct;
+  if(isRight){ session.correctCount++; }
+  else {
+    session.wrongList.push({ q: q.q, your: q.options[idx], right: q.options[q.correct], expl: q.expl, domain: q.domain });
+  }
+
+  const fb = document.getElementById('qFeedback');
+  fb.classList.add('show', isRight ? 'right' : 'wrong');
+  document.getElementById('fVerdict').textContent = isRight ? '✓ Richtig' : '✕ Falsch';
+  document.getElementById('fExpl').innerHTML = q.expl;
+
+  document.getElementById('scoreLive').textContent = session.correctCount + ' richtig';
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuestion(){
+  session.index++;
+  if(session.index >= session.questions.length){
+    showSummary(false);
+  } else {
+    renderQuestion();
+  }
+}
+
+function showConfirm(message, onYes){
+  const overlay = document.getElementById('confirmOverlay');
+  document.getElementById('confirmMessage').textContent = message;
+  overlay.classList.remove('hidden');
+
+  const yesBtn = document.getElementById('confirmYesBtn');
+  const noBtn = document.getElementById('confirmNoBtn');
+
+  function cleanup(){
+    overlay.classList.add('hidden');
+    yesBtn.removeEventListener('click', onYesClick);
+    noBtn.removeEventListener('click', onNoClick);
+  }
+  function onYesClick(){ cleanup(); onYes(); }
+  function onNoClick(){ cleanup(); }
+
+  yesBtn.addEventListener('click', onYesClick);
+  noBtn.addEventListener('click', onNoClick);
+}
+
+function cancelQuiz(){
+  const answered = session.correctCount + session.wrongList.length;
+  const msg = answered > 0
+    ? 'Quiz wirklich abbrechen? Dein bisheriger Fortschritt ('+answered+' beantwortete Fragen) geht verloren.'
+    : 'Quiz wirklich abbrechen?';
+  showConfirm(msg, () => { goHome(); });
+}
+
+function finishNow(){
+  const answered = session.correctCount + session.wrongList.length;
+  if(answered === 0){
+    showConfirm('Du hast noch keine Frage beantwortet. Trotzdem abgeben und zur Auswertung springen?', () => { showSummary(true); });
+  } else {
+    showConfirm('Quiz jetzt abgeben und Auswertung ansehen? ('+answered+' von '+session.questions.length+' Fragen beantwortet)', () => { showSummary(true); });
+  }
+}
+
+function showSummary(early){
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('summary-screen').classList.remove('hidden');
+
+  const total = early ? (session.correctCount + session.wrongList.length) : session.questions.length;
+  const correct = session.correctCount;
+  const wrong = total - correct;
+  const pct = total > 0 ? Math.round((correct/total)*100) : 0;
+
+  document.getElementById('sumTotal').textContent = total;
+  document.getElementById('sumCorrect').textContent = correct;
+  document.getElementById('sumWrong').textContent = wrong;
+  document.getElementById('sumPercent').textContent = pct + '%';
+
+  const banner = document.getElementById('verdictBanner');
+  const passThreshold = 75;
+  if(pct >= passThreshold){
+    banner.className = 'verdict-banner pass';
+    banner.textContent = '✓ Bestanden — ' + pct + '% liegt über der angenommenen Bestehensgrenze von ' + passThreshold + '%.';
+  } else {
+    banner.className = 'verdict-banner fail';
+    banner.textContent = '✕ Noch nicht bestanden — ' + pct + '% liegt unter der angenommenen Bestehensgrenze von ' + passThreshold + '%. Review unten durchgehen und Domänen gezielt wiederholen.';
+  }
+
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML = '';
+  if(session.wrongList.length === 0){
+    reviewList.innerHTML = '<div class="empty-review">Keine falschen Antworten — alle Fragen richtig beantwortet.</div>';
+  } else {
+    session.wrongList.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML =
+        '<p class="rq">'+item.q+'</p>' +
+        '<div class="review-line your"><span class="lab">Deine Antwort</span>'+item.your+'</div>' +
+        '<div class="review-line right"><span class="lab">Richtige Antwort</span>'+item.right+'</div>' +
+        '<div class="review-expl">'+item.expl+'</div>';
+      reviewList.appendChild(div);
+    });
+  }
+}
+</script>
+</body>
+</html>
