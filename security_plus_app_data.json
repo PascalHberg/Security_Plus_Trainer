@@ -1,0 +1,1421 @@
+[
+    {
+        "frage_nr": 1,
+        "frage": "Welcher Bedrohungsakteur wird am ehesten von einer ausländischen Regierung angeheuert, um kritische Systeme in anderen Ländern anzugreifen?",
+        "optionen": {
+            "A": "Hacktivist",
+            "B": "Whistleblower",
+            "C": "Organisiertes Verbrechen",
+            "D": "Unerfahrener Angreifer"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Nationalstaaten (Nation-states) verfügen über die Ressourcen, Budgets und Motive für weitreichende Angriffe auf kritische Infrastrukturen."
+    },
+    {
+        "frage_nr": 2,
+        "frage": "Was wird verwendet, um zusätzliche Komplexität hinzuzufügen, bevor ein Einweg-Datentransformationsalgorithmus angewendet wird?",
+        "optionen": {
+            "A": "Key Stretching",
+            "B": "Data Masking",
+            "C": "Steganografie",
+            "D": "Salting"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Salting fügt Passwörtern vor dem Hashen zufällige Daten hinzu, um Rainbow-Table-Angriffe zu verhindern."
+    },
+    {
+        "frage_nr": 3,
+        "frage": "Ein Mitarbeiter gab nach einem Klick auf einen E-Mail-Link Anmeldedaten ein und erhielt einen 'Seite nicht gefunden'-Fehler. Welcher Angriff war das?",
+        "optionen": {
+            "A": "Brand Impersonation",
+            "B": "Pretexting",
+            "C": "Typosquatting",
+            "D": "Phishing"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Phishing nutzt gefälschte Nachrichten, um Benutzer zur Herausgabe von Anmeldedaten zu manipulieren."
+    },
+    {
+        "frage_nr": 4,
+        "frage": "Welche Firewall-ACL begrenzt ausgehendes DNS (Port 53) ausschließlich auf das Gerät 10.50.10.25?",
+        "optionen": {
+            "A": "permit 0.0.0.0/0 0.0.0.0/0 port 53; deny 10.50.10.25/32 0.0.0.0/0 port 53",
+            "B": "permit 0.0.0.0/0 10.50.10.25/32 port 53; deny 0.0.0.0/0 0.0.0.0/0 port 53",
+            "C": "permit 0.0.0.0/0 0.0.0.0/0 port 53; deny 0.0.0.0/0 10.50.10.25/32 port 53",
+            "D": "permit 10.50.10.25/32 0.0.0.0/0 port 53; deny 0.0.0.0/0 0.0.0.0/0 port 53"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Die ACL muss den Port 53 explizit für die Quell-IP 10.50.10.25 erlauben (permit) und anschließend jeglichen anderen DNS-Traffic blockieren (deny)."
+    },
+    {
+        "frage_nr": 5,
+        "frage": "Welche Methode reduziert Anmeldeinformationen, indem Domänen-Credentials für SaaS-Apps genutzt werden?",
+        "optionen": {
+            "A": "SSO",
+            "B": "LEAP",
+            "C": "MFA",
+            "D": "PEAP"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "SSO (Single Sign-On) ermöglicht die Nutzung einer einzigen Identität (Domänen-Anmeldedaten) für mehrere Anwendungen."
+    },
+    {
+        "frage_nr": 6,
+        "frage": "Was beschreibt einen möglichen Business Email Compromise (BEC) Angriff?",
+        "optionen": {
+            "A": "Geschenkkartenanfrage mit Namen einer Führungskraft im Absender.",
+            "B": "Ransomware-Forderung nach Öffnen eines Anhangs.",
+            "C": "E-Mail vom HR-Direktor, die Cloud-Admin-Anmeldedaten anfordert.",
+            "D": "Link zu einer gefälschten E-Mail-Portalseite."
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "BEC zielt auf das Abfangen geschäftlicher Kommunikation ab. Die Imitation einer Führungskraft (HR-Direktor) zur Erlangung von Admin-Rechten ist ein klassisches Szenario."
+    },
+    {
+        "frage_nr": 7,
+        "frage": "Was sollte ein Datenbankadministrator verwenden, um auf Datenbankserver zuzugreifen, wenn direkter Zugriff blockiert ist?",
+        "optionen": {
+            "A": "Jump-Server",
+            "B": "RADIUS",
+            "C": "HSM",
+            "D": "Load Balancer"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Ein Jump-Server fungiert als kontrollierter Gateway in eine sichere Zone, um direkten Zugriff auf kritische Systeme zu verhindern."
+    },
+    {
+        "frage_nr": 8,
+        "frage": "Was schützt eine Website am besten vor Buffer-Overflow-Angriffen?",
+        "optionen": {
+            "A": "NGFW",
+            "B": "WAF",
+            "C": "TLS",
+            "D": "SD-WAN"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Eine Web Application Firewall (WAF) analysiert HTTP-Traffic und blockiert Layer-7-Angriffe wie Buffer Overflows oder SQL-Injections."
+    },
+    {
+        "frage_nr": 9,
+        "frage": "Was verhindert, dass verdächtige Anmeldungen nach einem Passwort-Reset erneut erfolgreich sind?",
+        "optionen": {
+            "A": "Multifaktor-Authentifizierung (MFA)",
+            "B": "Berechtigungszuweisung",
+            "C": "Zugriffsverwaltung",
+            "D": "Passwortkomplexität"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Multifaktor-Authentifizierung erfordert einen zusätzlichen Faktor. Selbst bei gestohlenen Passwörtern verhindert der fehlende zweite Faktor den Zugriff."
+    },
+    {
+        "frage_nr": 10,
+        "frage": "Eine SMS der angeblichen Lohnbuchhaltung bittet um Anmeldedaten. Welche Techniken sind das? (Wähle zwei)",
+        "optionen": {
+            "A": "Typosquatting",
+            "B": "Phishing",
+            "C": "Impersonation (Identitätsdiebstahl)",
+            "D": "Vishing",
+            "E": "Smishing",
+            "F": "Misinformation"
+        },
+        "korrekte_antwort": "C, E",
+        "erlaeuterung": "Impersonation (Identitätsdiebstahl) liegt vor, da sich der Absender als Lohnbuchhaltung ausgibt. Smishing ist die Nutzung von SMS für Phishing."
+    },
+    {
+        "frage_nr": 11,
+        "frage": "Mitarbeiter erhalten eine betrügerische SMS vom angeblichen CEO mit der Bitte, Geschenkkarten zu kaufen. Was sind die besten Reaktionen? (Wähle zwei)",
+        "optionen": {
+            "A": "Aktuelle Geschenkkarten stornieren.",
+            "B": "Smishing-Übung zum jährlichen Training hinzufügen.",
+            "C": "Eine allgemeine Warn-E-Mail an das Unternehmen senden.",
+            "D": "Telefonnummer des CEO ändern.",
+            "E": "Forensische Untersuchung des CEO-Telefons.",
+            "F": "Mobile Device Management (MDM) implementieren."
+        },
+        "korrekte_antwort": "B, C",
+        "erlaeuterung": "Die Sensibilisierung der Mitarbeiter per Warn-E-Mail und gezieltes Training (Smishing-Übung) sind die effektivsten präventiven Maßnahmen."
+    },
+    {
+        "frage_nr": 12,
+        "frage": "Was adressiert am besten das Risiko beim Beschaffen von Hardware-Fälschungen?",
+        "optionen": {
+            "A": "Eine gründliche Analyse der Lieferkette.",
+            "B": "Eine rechtlich durchsetzbare Beschaffungsrichtlinie.",
+            "C": "Eine 'Right to audit'-Klausel in Verträgen.",
+            "D": "Ein Penetrationstest aller Lieferanten."
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Eine Supply Chain Analysis (Lieferkettenanalyse) verifiziert die Herkunft und Authentizität von Hardware, um Fälschungen auszuschließen."
+    },
+    {
+        "frage_nr": 13,
+        "frage": "Welches Dokument definiert die Bedingungen eines Tests mit einem Drittanbieter-Penetrationstester?",
+        "optionen": {
+            "A": "Rules of engagement",
+            "B": "Supply chain analysis",
+            "C": "Right to audit clause",
+            "D": "Due diligence"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Rules of Engagement definieren die Parameter, Einschränkungen und den Umfang eines Penetrationstests vertraglich."
+    },
+    {
+        "frage_nr": 14,
+        "frage": "Welche Art der Aufklärung (Reconnaissance) führt ein Tester durch, wenn er Port- und Service-Scans durchführt?",
+        "optionen": {
+            "A": "Aktiv",
+            "B": "Passiv",
+            "C": "Defensiv",
+            "D": "Offensiv"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Port- und Service-Scans interagieren direkt mit dem Zielsystem, weshalb sie als aktive Aufklärung (Active Reconnaissance) gelten."
+    },
+    {
+        "frage_nr": 15,
+        "frage": "Was wird benötigt, um Wiederherstellungsprozesse nach einem Systemausfall richtig zu verwalten?",
+        "optionen": {
+            "A": "IRP",
+            "B": "DRP",
+            "C": "RPO",
+            "D": "SDLC"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Ein Disaster Recovery Plan (DRP) dokumentiert die technischen Schritte zur Wiederherstellung von IT-Systemen nach einem Notfall."
+    },
+    {
+        "frage_nr": 16,
+        "frage": "Mit welcher Schwachstelle ist die Installation von Software außerhalb des offiziellen Hersteller-Repositories verbunden?",
+        "optionen": {
+            "A": "Jailbreaking",
+            "B": "Memory injection",
+            "C": "Resource reuse",
+            "D": "Side loading"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Side Loading umgeht offizielle App-Stores, was die Installation ungeprüfter und potenziell bösartiger Software ermöglicht."
+    },
+    {
+        "frage_nr": 17,
+        "frage": "Log-Einträge zeigen abgelehnte Logins für verschiedene Benutzer mit demselben Passwort ('Spring2023'). Welcher Angriff ist das?",
+        "optionen": {
+            "A": "Password spraying",
+            "B": "Account forgery",
+            "C": "Pass-the-hash",
+            "D": "Brute-force"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Password Spraying testet ein einzelnes, häufiges Passwort gegen viele verschiedene Benutzerkonten, um Account-Sperrungen zu vermeiden."
+    },
+    {
+        "frage_nr": 18,
+        "frage": "Was ist am relevantesten für die Bewertung der Implementierung von Zero Trust in der Data Plane?",
+        "optionen": {
+            "A": "Secured zones (Gesicherte Zonen)",
+            "B": "Subject role",
+            "C": "Adaptive identity",
+            "D": "Threat scope reduction"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Zero Trust erfordert Mikrosegmentierung und strikt gesicherte Zonen (Secured zones), um laterale Bewegungen zu verhindern."
+    },
+    {
+        "frage_nr": 19,
+        "frage": "Welche Lösung bietet eine zusätzliche Sicherheitsebene gegen unbefugten Zugriff auf interne Ressourcen?",
+        "optionen": {
+            "A": "RDP-Server",
+            "B": "Jump-Server",
+            "C": "Proxy-Server",
+            "D": "Hypervisor"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Ein Jump-Server isoliert das interne Netzwerk und fungiert als einziger, überwachter Zugangspunkt für Administratoren."
+    },
+    {
+        "frage_nr": 20,
+        "frage": "Welcher Suchstring im Webfilter blockiert den Zugriff auf unverschlüsselte Websites?",
+        "optionen": {
+            "A": "encryption=off",
+            "B": "http://",
+            "C": "www.*.com",
+            "D": ":443"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "HTTP ist unverschlüsselt. Das Filtern nach 'http://' blockiert Webseiten, die kein HTTPS (TLS) verwenden."
+    },
+    {
+        "frage_nr": 21,
+        "frage": "Welche Inbound-Firewall-Regel blockiert den Traffic von der bösartigen IP 10.1.4.9?",
+        "optionen": {
+            "A": "deny ip source 0.0.0.0/0 destination 10.1.4.9/32",
+            "B": "deny ip source 10.1.4.9/32 destination 0.0.0.0/0",
+            "C": "permit ip source 10.1.4.9/32 destination 0.0.0.0/0",
+            "D": "permit ip source 0.0.0.0/0 destination 10.1.4.9/32"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Die Inbound-Regel muss eingehenden Datenverkehr (deny) von der spezifischen Quell-IP (source) an beliebige interne Ziele (destination 0.0.0.0/0) blockieren."
+    },
+    {
+        "frage_nr": 22,
+        "frage": "Welche Methode bietet den sichersten Administratorzugriff auf interne Ressourcen bei minimalem Traffic durch die Sicherheitsgrenze?",
+        "optionen": {
+            "A": "Bastion-Host implementieren",
+            "B": "Perimeter-Netzwerk bereitstellen",
+            "C": "WAF installieren",
+            "D": "SSO nutzen"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Ein Bastion-Host (Jump-Server) ist ein stark gehärtetes System, das sicheren, überwachten Admin-Zugriff durch eine Firewall ermöglicht."
+    },
+    {
+        "frage_nr": 23,
+        "frage": "Welche Logs benötigt ein Analyst für Details zu einer ausführbaren Datei auf einem Firmen-Laptop?",
+        "optionen": {
+            "A": "Application",
+            "B": "IPS/IDS",
+            "C": "Network",
+            "D": "Endpoint"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Endpoint-Logs protokollieren Prozesse, Dateizugriffe und Ausführungen direkt auf dem Endgerät (Laptop)."
+    },
+    {
+        "frage_nr": 24,
+        "frage": "Welche Aktion identifiziert neues Angreiferverhalten, für das noch keine SIEM-Alarme konfiguriert sind?",
+        "optionen": {
+            "A": "Digital forensics",
+            "B": "E-discovery",
+            "C": "Incident response",
+            "D": "Threat hunting"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Threat Hunting ist die proaktive, manuelle Suche nach Cyberbedrohungen, die von automatisierten Erkennungssystemen (wie SIEM) übersehen wurden."
+    },
+    {
+        "frage_nr": 25,
+        "frage": "Welche Risikostrategie stellt der Kauf einer Cyber-Versicherung dar?",
+        "optionen": {
+            "A": "Accept (Akzeptieren)",
+            "B": "Transfer (Übertragen)",
+            "C": "Mitigate (Mindern)",
+            "D": "Avoid (Vermeiden)"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Versicherungen stellen einen Risikotransfer (Transfer) dar, da die finanziellen Folgen an einen Dritten ausgelagert werden."
+    },
+    {
+        "frage_nr": 26,
+        "frage": "Welche Verschlüsselungstechnik sollte verwendet werden, um Daten auf Mitarbeiter-Laptops zu schützen?",
+        "optionen": {
+            "A": "Partition",
+            "B": "Asymmetric",
+            "C": "Full disk (Vollständige Festplattenverschlüsselung)",
+            "D": "Database"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Full Disk Encryption (FDE) verschlüsselt die gesamte Festplatte und schützt so Data at Rest bei physischem Diebstahl."
+    },
+    {
+        "frage_nr": 27,
+        "frage": "Welcher Sicherheitskontrolltyp wird durch eine Acceptable Use Policy (AUP) repräsentiert?",
+        "optionen": {
+            "A": "Detective (Aufdeckend)",
+            "B": "Compensating (Kompensierend)",
+            "C": "Corrective (Korrigierend)",
+            "D": "Preventive (Präventiv)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Eine Acceptable Use Policy (AUP) gibt Verhaltensregeln vor und dient als präventive administrative Kontrolle."
+    },
+    {
+        "frage_nr": 28,
+        "frage": "Welche Technik wendet ein IT-Manager an, wenn nur er und der Helpdesk-Leiter Admin-Zugriff haben?",
+        "optionen": {
+            "A": "Hardening",
+            "B": "Employee monitoring",
+            "C": "Configuration enforcement",
+            "D": "Least privilege"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Least Privilege (Prinzip der minimalen Rechte) gewährt Benutzern nur die Berechtigungen, die sie zwingend für ihre Arbeit benötigen."
+    },
+    {
+        "frage_nr": 29,
+        "frage": "Wo werden Risiken, Verantwortliche und Schwellenwerte dokumentiert?",
+        "optionen": {
+            "A": "Risk tolerance",
+            "B": "Risk transfer",
+            "C": "Risk register (Risikoregister)",
+            "D": "Risk analysis"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Ein Risikoregister dokumentiert identifizierte Risiken, deren Einstufung und die verantwortlichen Personen."
+    },
+    {
+        "frage_nr": 30,
+        "frage": "Worauf sollte geachtet werden, wenn neue Firewall-Regeln eingerichtet werden?",
+        "optionen": {
+            "A": "Disaster recovery plan",
+            "B": "Incident response procedure",
+            "C": "Business continuity plan",
+            "D": "Change management procedure"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Change Management stellt sicher, dass Änderungen getestet, dokumentiert und genehmigt werden, bevor sie in Produktion gehen."
+    },
+    {
+        "frage_nr": 31,
+        "frage": "Wie nennt man ein Programm, bei dem Forscher für das Finden von Schwachstellen bezahlt werden?",
+        "optionen": {
+            "A": "Open-source intelligence",
+            "B": "Bug bounty",
+            "C": "Red team",
+            "D": "Penetration testing"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Bug-Bounty-Programme bieten finanzielle Anreize für externe Sicherheitsforscher, um Schwachstellen kontrolliert zu melden."
+    },
+    {
+        "frage_nr": 32,
+        "frage": "Welcher Bedrohungsakteur nutzt am ehesten große finanzielle Ressourcen, um kritische Systeme in anderen Ländern anzugreifen?",
+        "optionen": {
+            "A": "Insider",
+            "B": "Unerfahrener Angreifer",
+            "C": "Nation-state (Nationalstaat)",
+            "D": "Hacktivist"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Nationalstaaten (Nation-states) verfügen über enorme Budgets für fortschrittliche und langwierige Cyberangriffe (APTs)."
+    },
+    {
+        "frage_nr": 33,
+        "frage": "Womit können über ein Eingabefeld Befehle ausgeführt werden, um Daten anzuzeigen oder zu manipulieren?",
+        "optionen": {
+            "A": "Cross-site scripting",
+            "B": "Side loading",
+            "C": "Buffer overflow",
+            "D": "SQL injection"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "SQL Injection manipuliert Eingabefelder, um unautorisierte Datenbankabfragen auszuführen."
+    },
+    {
+        "frage_nr": 34,
+        "frage": "Welche Datenart nutzen F&E-Mitarbeiter am ehesten in ihrer täglichen Arbeit?",
+        "optionen": {
+            "A": "Encrypted",
+            "B": "Intellectual property (Geistiges Eigentum)",
+            "C": "Critical",
+            "D": "Data in transit"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Forschung und Entwicklung (F&E) arbeiten hauptsächlich mit Geschäftsgeheimnissen, Patenten und proprietären Designs (Geistiges Eigentum)."
+    },
+    {
+        "frage_nr": 35,
+        "frage": "Welche Vorteile bieten Inventaraufkleber auf Laptops, die mit Mitarbeiter-IDs verknüpft sind? (Wähle zwei)",
+        "optionen": {
+            "A": "Bei einem Vorfall kann der richtige Mitarbeiter benachrichtigt werden.",
+            "B": "Sicherheitsbewusstseinsschulungen können gezielt gesendet werden.",
+            "C": "Benutzer können MFA-Token zugeordnet werden.",
+            "D": "Benutzerbasierte Firewall-Richtlinien können angewendet werden.",
+            "E": "Gezieltes Targeting bei Penetrationstests.",
+            "F": "Firmendaten können beim Austritt des Mitarbeiters kontrolliert werden."
+        },
+        "korrekte_antwort": "A, F",
+        "erlaeuterung": "Inventaraufkleber (Asset Tags) erleichtern die physische Zuordnung von Geräten zu Mitarbeitern für Incident Response und Bestandskontrolle (Offboarding)."
+    },
+    {
+        "frage_nr": 36,
+        "frage": "Wie verbessert man am besten das Situations- und Umweltbewusstsein bei der Rückkehr ins Büro?",
+        "optionen": {
+            "A": "Regelmäßige Sicherheitserinnerungen senden.",
+            "B": "Einarbeitungsdokumente aktualisieren.",
+            "C": "Inhalte wiederkehrender Schulungen ändern.",
+            "D": "Phishing-Kampagne durchführen."
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Wiederkehrende Schulungen lassen sich anpassen, um gezielt auf aktuelle Veränderungen in der Arbeitsumgebung einzugehen."
+    },
+    {
+        "frage_nr": 37,
+        "frage": "Wie sollte man Vorfallsdaten dem Verwaltungsrat am besten vierteljährlich präsentieren?",
+        "optionen": {
+            "A": "Packet captures",
+            "B": "Vulnerability scans",
+            "C": "Metadata",
+            "D": "Dashboard"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Dashboards aggregieren komplexe Vorfallsdaten in visuelle, leicht verständliche Metriken für das Management."
+    },
+    {
+        "frage_nr": 38,
+        "frage": "FIM-Alarm: Hash von cmd.exe geändert, keine Patches angewendet. Was ist passiert?",
+        "optionen": {
+            "A": "Benutzer hat Dateiberechtigungen geändert.",
+            "B": "Kryptografische Kollision.",
+            "C": "Snapshot wurde erstellt.",
+            "D": "Rootkit wurde bereitgestellt."
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Ein Rootkit versteckt sich tief im System und manipuliert Kernprozesse (wie cmd.exe), was durch geänderte Hashwerte auffällt."
+    },
+    {
+        "frage_nr": 39,
+        "frage": "Wer ist in einem IaaS-Modell für die Sicherung der Datenbank verantwortlich?",
+        "optionen": {
+            "A": "Client (Kunde)",
+            "B": "Drittanbieter",
+            "C": "Cloud-Provider",
+            "D": "DBA"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Im IaaS-Modell liegt die Verantwortung für die Infrastruktur beim Provider, aber der Kunde (Client) verwaltet das OS und die Datenbank."
+    },
+    {
+        "frage_nr": 40,
+        "frage": "Welches Dokument umreißt Projekt, Kosten und Zeitrahmen?",
+        "optionen": {
+            "A": "MSA",
+            "B": "SLA",
+            "C": "BPA",
+            "D": "SOW (Statement of Work)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Das Statement of Work (SOW) ist ein Vertragsdokument, das Zeitrahmen, Kosten und spezifische Projektziele definiert."
+    },
+    {
+        "frage_nr": 41,
+        "frage": "Wie verhindert man Cross-Site-Scripting in Webformularen?",
+        "optionen": {
+            "A": "Secure cookies",
+            "B": "Version control",
+            "C": "Input validation (Eingabevalidierung)",
+            "D": "Code signing"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Input Validation (Eingabevalidierung) prüft und bereinigt Daten, bevor die Anwendung sie verarbeitet, und blockiert so XSS-Payloads."
+    },
+    {
+        "frage_nr": 42,
+        "frage": "Was muss beim Design eines Hochverfügbarkeitsnetzwerks beachtet werden? (Wähle zwei)",
+        "optionen": {
+            "A": "Ease of recovery (Einfache Wiederherstellung)",
+            "B": "Ability to patch",
+            "C": "Physical isolation",
+            "D": "Responsiveness (Reaktionsfähigkeit)",
+            "E": "Attack surface",
+            "F": "Extensible authentication"
+        },
+        "korrekte_antwort": "A, D",
+        "erlaeuterung": "Hochverfügbarkeit zielt auf minimale Ausfallzeiten ab, was schnelle Wiederherstellung und hohe Reaktionsfähigkeit des Netzwerks erfordert."
+    },
+    {
+        "frage_nr": 43,
+        "frage": "Was sollte zuerst getan werden, bevor ein hochpriorisierter Patch in Produktion angewendet wird?",
+        "optionen": {
+            "A": "System vom Netz trennen (Air gap).",
+            "B": "System in anderes Segment verschieben.",
+            "C": "Change Control Request erstellen.",
+            "D": "Patch direkt anwenden."
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Das Change Management muss immer involviert werden, um Risiken durch Patches zu bewerten und ungeplante Ausfälle zu vermeiden."
+    },
+    {
+        "frage_nr": 44,
+        "frage": "Warum sollte eine Root-Cause-Analyse (Ursachenanalyse) durchgeführt werden?",
+        "optionen": {
+            "A": "Um IoCs zu sammeln.",
+            "B": "Um betroffene Systeme zu entdecken.",
+            "C": "Um Malware zu entfernen.",
+            "D": "Um zukünftige Vorfälle gleicher Art zu verhindern."
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Die Ursachenanalyse identifiziert die zugrundeliegende Schwachstelle, um diese dauerhaft zu beheben und Wiederholungen zu verhindern."
+    },
+    {
+        "frage_nr": 45,
+        "frage": "Was ist die wahrscheinlichste Folge, wenn eine Bank ein internes PCI-DSS-Audit nicht besteht?",
+        "optionen": {
+            "A": "Strafen (Fines)",
+            "B": "Audit findings (Prüfungsfeststellungen)",
+            "C": "Sanktionen",
+            "D": "Rufschädigung"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Interne Audits führen primär zu Feststellungen (Findings), die behoben werden müssen, bevor es zu externen Strafen (Fines) kommt."
+    },
+    {
+        "frage_nr": 46,
+        "frage": "Wie nennt man die Bestimmung der benötigten Personalanzahl für die Geschäftskontinuität?",
+        "optionen": {
+            "A": "Capacity planning (Kapazitätsplanung)",
+            "B": "Redundancy",
+            "C": "Geographic dispersion",
+            "D": "Tabletop exercise"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Kapazitätsplanung analysiert den Bedarf an Ressourcen (wie Personal, Bandbreite, Hardware) für den kontinuierlichen Betrieb."
+    },
+    {
+        "frage_nr": 47,
+        "frage": "Wie verhindert man am effektivsten den Zugriff auf SaaS-Dokumente aus Hochrisikoländern?",
+        "optionen": {
+            "A": "Data masking",
+            "B": "Encryption",
+            "C": "Geolocation policy",
+            "D": "Data sovereignty regulation"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Geolocation Policies beschränken Zugriffe basierend auf dem geografischen Standort der Quell-IP-Adresse."
+    },
+    {
+        "frage_nr": 48,
+        "frage": "Was ist eine hardwarespezifische Schwachstelle?",
+        "optionen": {
+            "A": "Firmware version",
+            "B": "Buffer overflow",
+            "C": "SQL injection",
+            "D": "Cross-site scripting"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Firmware ist die Basissoftware der Hardwarekomponenten; Schwachstellen hier sind direkt an die Hardware gebunden."
+    },
+    {
+        "frage_nr": 49,
+        "frage": "Wie verhindert man, dass eine neue 'Deny any'-Firewall-Richtlinie Server unerreichbar macht?",
+        "optionen": {
+            "A": "Change Request dokumentieren.",
+            "B": "Richtlinie in Nicht-Produktionsumgebung testen.",
+            "C": "IPS-Signaturen auf der Richtlinie deaktivieren.",
+            "D": "Eine 'Allow any'-Richtlinie darüber einfügen."
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Das Testen in einer isolierten Nicht-Produktionsumgebung validiert Firewall-Regeln, ohne den laufenden Betrieb zu gefährden."
+    },
+    {
+        "frage_nr": 50,
+        "frage": "Welcher Backup-Standort passt am besten zu Kosten-Nutzen-Fokus und RTO/RPO von ca. 2 Tagen?",
+        "optionen": {
+            "A": "Real-time recovery",
+            "B": "Hot",
+            "C": "Cold",
+            "D": "Warm"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Ein Warm Site bietet eine vorkonfigurierte Infrastruktur und Backups, benötigt aber etwas Zeit zur Aktivierung (passend für mittlere RTO/Kosten)."
+    },
+    {
+        "frage_nr": 51,
+        "frage": "Wie nennt man das sichere Löschen von Festplatten vor dem Recycling?",
+        "optionen": {
+            "A": "Enumeration",
+            "B": "Sanitization (Bereinigung)",
+            "C": "Destruction",
+            "D": "Inventory"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Sanitization (Bereinigung) umfasst Verfahren wie Wiping oder Degaussing, um Daten physisch oder logisch unwiederbringlich zu zerstören."
+    },
+    {
+        "frage_nr": 52,
+        "frage": "Welche Datenklassifizierung sollte für Patientendaten in einem Krankenhaus verwendet werden?",
+        "optionen": {
+            "A": "Private",
+            "B": "Critical",
+            "C": "Sensitive (Sensibel)",
+            "D": "Public"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Patientendaten unterliegen strengen rechtlichen Auflagen (wie HIPAA/DSGVO) und erfordern die höchste Vertraulichkeitsstufe (Sensibel)."
+    },
+    {
+        "frage_nr": 53,
+        "frage": "Was sollte ein Cloud-Provider beim internationalen Expandieren zuerst berücksichtigen?",
+        "optionen": {
+            "A": "Lokale Datenschutzbestimmungen.",
+            "B": "Risiken durch ausländische Hacker.",
+            "C": "Auswirkungen auf bestehende Verträge.",
+            "D": "Zeitzonenunterschiede in Logs."
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Bei internationalen Expansionen müssen zwingend die lokalen Datenschutz- und Souveränitätsgesetze (Data Sovereignty) beachtet werden."
+    },
+    {
+        "frage_nr": 54,
+        "frage": "Wie blockiert man am besten die Ausführung unbekannter Programme?",
+        "optionen": {
+            "A": "Access control list",
+            "B": "Application allow list (Freigabeliste)",
+            "C": "Host-based firewall",
+            "D": "DLP solution"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Eine Allow List (Freigabeliste) verweigert standardmäßig alles (Default Deny) und erlaubt nur explizit freigegebene Applikationen."
+    },
+    {
+        "frage_nr": 55,
+        "frage": "Welches Team führt offensive Sicherheitsbewertungen (Pentesting/Social Engineering) durch?",
+        "optionen": {
+            "A": "White",
+            "B": "Purple",
+            "C": "Blue",
+            "D": "Red"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Das Red Team agiert als Angreifer und führt offensive Techniken (Pentesting) durch, um die Verteidigung (Blue Team) zu testen."
+    },
+    {
+        "frage_nr": 56,
+        "frage": "Wie stellt man die Authentizität des selbstentwickelten Codes sicher?",
+        "optionen": {
+            "A": "Input-Validierung",
+            "B": "Code signing (Codesignatur)",
+            "C": "Statische Codeanalyse",
+            "D": "Sichere Cookies"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Code Signing nutzt Zertifikate, um den Urheber von Code zu bestätigen und die Integrität der Software zu garantieren."
+    },
+    {
+        "frage_nr": 57,
+        "frage": "Womit können Angreifer-Aktivitäten ohne Beeinträchtigung der Produktionsserver identifiziert werden?",
+        "optionen": {
+            "A": "Honeypot",
+            "B": "Video surveillance",
+            "C": "Zero Trust",
+            "D": "Geofencing"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Honeypots sind Lockvogel-Systeme. Angreifer interagieren mit ihnen, wodurch Methoden analysiert werden können, ohne das Produktionsnetz zu gefährden."
+    },
+    {
+        "frage_nr": 58,
+        "frage": "Welche IR-Aktivität beschreibt das Verständnis der Ursprungsquelle eines Vorfalls?",
+        "optionen": {
+            "A": "Analysis (Analyse)",
+            "B": "Lessons learned",
+            "C": "Detection",
+            "D": "Containment"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "In der Analyse-Phase werden Indikatoren gesammelt und ausgewertet, um das Ausmaß und die Ursache des Vorfalls zu bestimmen."
+    },
+    {
+        "frage_nr": 59,
+        "frage": "Was ist nach der Behebung gefundener Schwachstellen zu tun?",
+        "optionen": {
+            "A": "Audit durchführen",
+            "B": "Pen-Test starten",
+            "C": "Netzwerk erneut scannen (Rescan)",
+            "D": "Bericht einreichen"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Ein Rescan (erneuter Scan) ist notwendig, um zu verifizieren, dass Patches und Workarounds die Schwachstelle wirklich geschlossen haben."
+    },
+    {
+        "frage_nr": 60,
+        "frage": "Benutzer loggt sich nach Feierabend ein und kopiert massenhaft Daten. Was ist das?",
+        "optionen": {
+            "A": "Penetration testing",
+            "B": "Phishing campaign",
+            "C": "External audit",
+            "D": "Insider threat"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Ein legitimer Benutzer, der unautorisiert Firmendaten abzieht (Exfiltration), stellt eine klassische Insider-Bedrohung dar."
+    },
+    {
+        "frage_nr": 61,
+        "frage": "Was ermöglicht die eindeutige Zuordnung von Nachrichten zu Personen?",
+        "optionen": {
+            "A": "Adaptive identity",
+            "B": "Non-repudiation (Nichtabstreitbarkeit)",
+            "C": "Authentication",
+            "D": "Access logs"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Non-repudiation (Nichtabstreitbarkeit) nutzt kryptografische Verfahren (wie digitale Signaturen), um den Absender zweifelsfrei zu identifizieren."
+    },
+    {
+        "frage_nr": 62,
+        "frage": "Wie prüft man täglich konsistent auf modifizierte Sicherheitseinstellungen?",
+        "optionen": {
+            "A": "Automation",
+            "B": "Compliance checklist",
+            "C": "Attestation",
+            "D": "Manual audit"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Automatisierungstools überprüfen Konfigurationen kontinuierlich gegen festgelegte Baselines, um Abweichungen sofort zu erkennen."
+    },
+    {
+        "frage_nr": 63,
+        "frage": "Welches Tool erkennt, wenn versehentlich PII per E-Mail versendet werden?",
+        "optionen": {
+            "A": "SCAP",
+            "B": "NetFlow",
+            "C": "Antivirus",
+            "D": "DLP"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Data Loss Prevention (DLP) inspiziert ausgehenden Traffic, um sensible Daten (wie PII) zu erkennen und deren Abfluss zu blockieren."
+    },
+    {
+        "frage_nr": 64,
+        "frage": "Regex zur Entfernung von Sonderzeichen aus Variablen in Webformularen. Welche Technik ist das?",
+        "optionen": {
+            "A": "Identify embedded keys",
+            "B": "Code debugging",
+            "C": "Input validation",
+            "D": "Static code analysis"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Das gezielte Filtern von Sonderzeichen in Formularen verhindert Code-Injections und ist eine Form der Input Validation."
+    },
+    {
+        "frage_nr": 65,
+        "frage": "Wie reduziert man die Auswirkungen, wenn Benutzer auf Phishing-Links klicken?",
+        "optionen": {
+            "A": "Poster aufhängen.",
+            "B": "E-Mail-Filter implementieren.",
+            "C": "EDR-Richtlinien aktualisieren, um automatische Ausführung zu blockieren.",
+            "D": "Zusätzliche Schulungen erstellen."
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "EDR-Lösungen überwachen Endgeräte und können das Ausführen von Schadsoftware (Payloads) nach Phishing-Klicks aktiv blockieren."
+    },
+    {
+        "frage_nr": 66,
+        "frage": "Welches Konzept wird angewandt, wenn eine Legacy-Linux-Firewall nur bestimmte interne IPs zulässt?",
+        "optionen": {
+            "A": "Compensating control (Kompensierende Kontrolle)",
+            "B": "Network segmentation",
+            "C": "Transfer of risk",
+            "D": "SNMP traps"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Kompensierende Kontrollen ersetzen primäre Sicherheitsmaßnahmen (wie Patches), wenn diese auf Legacy-Systemen technisch nicht möglich sind."
+    },
+    {
+        "frage_nr": 67,
+        "frage": "Wie automatisiert man manuelle Kontoerstellungen mit falschen Rechten?",
+        "optionen": {
+            "A": "Guard rail script",
+            "B": "Ticketing workflow",
+            "C": "Escalation script",
+            "D": "User provisioning script"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "User Provisioning Scripts automatisieren die Kontoerstellung und gewährleisten korrekte, standardisierte Rollen und Berechtigungen."
+    },
+    {
+        "frage_nr": 68,
+        "frage": "SIEM einrichten und wöchentlich Logs prüfen. Welcher Kontrolltyp ist das?",
+        "optionen": {
+            "A": "Corrective",
+            "B": "Preventive",
+            "C": "Detective (Aufdeckend)",
+            "D": "Deterrent"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Ein SIEM (Security Information and Event Management) deckt Sicherheitsvorfälle nachträglich auf (detective control)."
+    },
+    {
+        "frage_nr": 69,
+        "frage": "Kostengünstiges, cloudbasiertes Anwendungs-Hosting?",
+        "optionen": {
+            "A": "Serverless framework",
+            "B": "Type 1 hypervisor",
+            "C": "SD-WAN",
+            "D": "SDN"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Serverless Frameworks abstrahieren die Infrastruktur vollständig. Kosten fallen nur für die reine Ausführungszeit des Codes an."
+    },
+    {
+        "frage_nr": 70,
+        "frage": "Erkannte bösartige Aktivität als normal einstufen und künftig ignorieren?",
+        "optionen": {
+            "A": "Tuning",
+            "B": "Aggregating",
+            "C": "Quarantining",
+            "D": "Archiving"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Tuning (Feinabstimmung) passt Sicherheitsregeln an die Unternehmensumgebung an, um False Positives dauerhaft herauszufiltern."
+    },
+    {
+        "frage_nr": 71,
+        "frage": "Logs zeigen: Passwort-Login erfolgreich, MFA wiederholt fehlgeschlagen. Was ist passiert?",
+        "optionen": {
+            "A": "Konto gesperrt.",
+            "B": "Keylogger installiert.",
+            "C": "Brute-Force-Angriff auf das Konto.",
+            "D": "Ransomware bereitgestellt."
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Das System verweigert den Zugriff wegen MFA, was beweist, dass das Passwort beim Brute-Force-Angriff bereits erfolgreich kompromittiert wurde."
+    },
+    {
+        "frage_nr": 72,
+        "frage": "Schutz vor wetterbedingten Ausfällen im Serverraum?",
+        "optionen": {
+            "A": "Clustering",
+            "B": "Geographic dispersion (Geografische Verteilung)",
+            "C": "Load balancers",
+            "D": "Off-site backups"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Die geografische Verteilung stellt sicher, dass lokale Katastrophen (wie Unwetter oder Stromausfälle) nicht alle RZ-Standorte betreffen."
+    },
+    {
+        "frage_nr": 73,
+        "frage": "Primäre Sicherheitsbedenken bei einem BYOD-Programm?",
+        "optionen": {
+            "A": "End of life",
+            "B": "Buffer overflow",
+            "C": "VM escape",
+            "D": "Jailbreaking"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Jailbreaking entfernt die vom Hersteller integrierten Sicherheits-Sandboxes, wodurch das Gerät anfällig für Schadsoftware wird."
+    },
+    {
+        "frage_nr": 74,
+        "frage": "Welches Analyseelement hilft bei der Entscheidung, Ransomware-Deckung aus der Cyber-Versicherung zu streichen?",
+        "optionen": {
+            "A": "MTTR",
+            "B": "RTO",
+            "C": "ARO (Annualized Rate of Occurrence)",
+            "D": "MTBF"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Die Annualized Rate of Occurrence (ARO) bewertet die jährliche Eintrittswahrscheinlichkeit und hilft, Versicherungskosten abzuwägen."
+    },
+    {
+        "frage_nr": 75,
+        "frage": "Welches Element der Kommunikation ist am wahrscheinlichsten Teil eines Security-Awareness-Programms?",
+        "optionen": {
+            "A": "Melden von Phishing oder anderen verdächtigen Aktivitäten.",
+            "B": "Insider-Bedrohungen durch Anomalieerkennung finden.",
+            "C": "Informationen prüfen beim Ändern von Überweisungsdaten.",
+            "D": "Social Engineering in Pen-Tests durchführen."
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Security-Awareness-Programme zielen darauf ab, Mitarbeiter zu trainieren, damit sie Sicherheitsvorfälle (wie Phishing) erkennen und dem IT-Team melden."
+    },
+    {
+        "frage_nr": 78,
+        "frage": "In welcher Phase der Incident Response werden Rollen und Verantwortlichkeiten geprüft?",
+        "optionen": {
+            "A": "Preparation (Vorbereitung)",
+            "B": "Recovery",
+            "C": "Lessons learned",
+            "D": "Analysis"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "In der Vorbereitungsphase (Preparation) werden Notfallpläne, Richtlinien, Rollen und Kommunikationswege definiert."
+    },
+    {
+        "frage_nr": 79,
+        "frage": "Wie härtet man Router im Unternehmensnetzwerk am sinnvollsten ab?",
+        "optionen": {
+            "A": "Console access",
+            "B": "Routing protocols",
+            "C": "VLANs",
+            "D": "Web-based administration (Web-Administration deaktivieren)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Web-Interfaces (HTTP/HTTPS) bergen oft Verwundbarkeiten. Die Deaktivierung reduziert die Angriffsfläche des Routers erheblich."
+    },
+    {
+        "frage_nr": 80,
+        "frage": "Wie sichert man Daten und verfolgt gleichzeitig Änderungen?",
+        "optionen": {
+            "A": "SPF",
+            "B": "GPO",
+            "C": "NAC",
+            "D": "FIM (File Integrity Monitoring)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "FIM (File Integrity Monitoring) überwacht Systemdateien auf unbefugte Änderungen durch den Abgleich kryptografischer Hashes."
+    },
+    {
+        "frage_nr": 82,
+        "frage": "Was ist wichtig bei der Planung von FDE (Full Disk Encryption) für Laptops? (Wähle zwei)",
+        "optionen": {
+            "A": "Key escrow (Schlüsselhinterlegung)",
+            "B": "TPM presence",
+            "C": "Digital signatures",
+            "D": "Data tokenization",
+            "E": "Public key management",
+            "F": "Certificate authority linking"
+        },
+        "korrekte_antwort": "A, B",
+        "erlaeuterung": "Key Escrow stellt die Datenwiederherstellung bei Passwortverlust sicher. Das TPM schützt die FDE-Verschlüsselungsschlüssel hardwareseitig."
+    },
+    {
+        "frage_nr": 83,
+        "frage": "Ein Remote Desktop auf einem öffentlichen Netz bietet Zugang zum Produktionsnetz. Was ist die Empfehlung?",
+        "optionen": {
+            "A": "RDP-Port ändern.",
+            "B": "VPN einrichten und Jump-Server hinter die Firewall stellen.",
+            "C": "Proxy für RDP-Verbindungen nutzen.",
+            "D": "Passwortlänge erhöhen."
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "RDP darf nicht direkt dem Internet ausgesetzt sein. Ein VPN in Kombination mit einem Jump-Server erzwingt Segmentierung und starke Authentifizierung."
+    },
+    {
+        "frage_nr": 84,
+        "frage": "Welche Lösung überwacht und blockiert signaturbasierte Exploits älterer Browser?",
+        "optionen": {
+            "A": "ACL",
+            "B": "DLP",
+            "C": "IDS",
+            "D": "IPS"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Ein Intrusion Prevention System (IPS) analysiert den Netzwerkverkehr inline und kann bekannte Angriffssignaturen proaktiv verwerfen."
+    },
+    {
+        "frage_nr": 85,
+        "frage": "Wie sollten Sicherheitskontrollen in einem Rechenzentrum bezüglich Menschenleben konfiguriert sein?",
+        "optionen": {
+            "A": "Remote access fail closed",
+            "B": "Logging fail open",
+            "C": "Safety controls fail open (Sicherheitssysteme im Fehlerfall offen)",
+            "D": "Logical controls fail closed"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Safety Controls (Sicherheitsvorkehrungen für Menschen) müssen bei Ausfall 'offen' (fail open) sein, um Evakuierungen zu ermöglichen."
+    },
+    {
+        "frage_nr": 86,
+        "frage": "Was eignet sich am besten für sich ständig ändernde Umgebungen?",
+        "optionen": {
+            "A": "RTOS",
+            "B": "Containers",
+            "C": "Embedded systems",
+            "D": "SCADA"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Container abstrahieren das OS, starten in Sekunden und sind extrem portabel, was sie ideal für dynamische, skalierbare Umgebungen macht."
+    },
+    {
+        "frage_nr": 87,
+        "frage": "Welche IR-Aktivität stellt sicher, dass Beweise richtig gehandhabt werden?",
+        "optionen": {
+            "A": "E-discovery",
+            "B": "Chain of custody (Beweismittelkette)",
+            "C": "Legal hold",
+            "D": "Preservation"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Die Chain of Custody (Beweismittelkette) dokumentiert lückenlos, wer Beweise wann gesichert hat, um deren rechtliche Integrität zu wahren."
+    },
+    {
+        "frage_nr": 88,
+        "frage": "Buchhalter überweist Geld an Angreifer nach gefälschter Mail. Wie verhindert man das künftig?",
+        "optionen": {
+            "A": "Standardisiertes Incident Reporting.",
+            "B": "Regelmäßige Phishing-Kampagnen.",
+            "C": "Insider Threat Maßnahmen.",
+            "D": "Prozesse für Überweisungen aktualisieren."
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Technische und prozessuale Kontrollen im Überweisungsprozess (z. B. Out-of-Band-Bestätigungen) verhindern Betrug durch BEC."
+    },
+    {
+        "frage_nr": 89,
+        "frage": "Ein Skript automatisiert die Erstellung vieler Konten fehlerfrei. Was ist das?",
+        "optionen": {
+            "A": "Off-the-shelf software",
+            "B": "Orchestration (Orchestrierung)",
+            "C": "Baseline",
+            "D": "Policy enforcement"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Orchestration automatisiert und koordiniert mehrere Einzelaufgaben und Workflows systemübergreifend, wie z.B. komplexes User Provisioning."
+    },
+    {
+        "frage_nr": 90,
+        "frage": "Welche Datenrolle nimmt der Kunde ein, dessen sensible Daten eine Marketingabteilung verarbeitet?",
+        "optionen": {
+            "A": "Processor",
+            "B": "Custodian",
+            "C": "Subject (Datensubjekt)",
+            "D": "Owner"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Das Datensubjekt (Data Subject) ist die identifizierbare natürliche Person, auf die sich die personenbezogenen Daten beziehen."
+    },
+    {
+        "frage_nr": 91,
+        "frage": "Was beschreibt die maximale Toleranz für akzeptierte Risiken?",
+        "optionen": {
+            "A": "Risk indicator",
+            "B": "Risk level",
+            "C": "Risk score",
+            "D": "Risk threshold (Risikoschwellenwert)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Der Risk Threshold (Risikoschwellenwert) definiert die messbare Obergrenze, ab der ein Risiko für die Organisation inakzeptabel wird."
+    },
+    {
+        "frage_nr": 92,
+        "frage": "Internes System sendet massenhaft DNS-Anfragen außerhalb der Geschäftszeiten ins Internet. Was passiert?",
+        "optionen": {
+            "A": "Wurm verbreitet sich.",
+            "B": "Daten werden exfiltriert.",
+            "C": "Logikbombe löscht Daten.",
+            "D": "Ransomware verschlüsselt Dateien."
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Außergewöhnlich hoher DNS-Traffic zu untypischen Zeiten ist ein starker Indikator für Datenexfiltration mittels DNS-Tunneling."
+    },
+    {
+        "frage_nr": 93,
+        "frage": "Techniker öffnet Firewall-Ports für ein SaaS-System. Welches Risiko besteht?",
+        "optionen": {
+            "A": "Default credentials",
+            "B": "Non-segmented network",
+            "C": "Supply chain vendor",
+            "D": "Vulnerable software"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Drittanbieter, die Netzwerkzugang benötigen, erweitern die Angriffsfläche und stellen ein klassisches Supply-Chain-Sicherheitsrisiko dar."
+    },
+    {
+        "frage_nr": 94,
+        "frage": "Konzept für: sichere Zone, firmenweite Zugriffskontrolle, reduzierte Bedrohungsfläche?",
+        "optionen": {
+            "A": "Zero Trust",
+            "B": "AAA",
+            "C": "Non-repudiation",
+            "D": "CIA"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Zero Trust basiert auf strikter Identitätsprüfung, Least Privilege und Mikrosegmentierung, unabhängig vom Netzwerkstandort."
+    },
+    {
+        "frage_nr": 95,
+        "frage": "Was nutzt Datenbank-Fehlkonfigurationen aus?",
+        "optionen": {
+            "A": "Buffer overflow",
+            "B": "SQL injection",
+            "C": "VM escape",
+            "D": "Memory injection"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "SQL Injection nutzt unsichere Datenbankabfragen aus, um Berechtigungen zu umgehen oder Daten zu exfiltrieren."
+    },
+    {
+        "frage_nr": 96,
+        "frage": "Womit wird ein Zertifikat validiert, wenn es einem Benutzer präsentiert wird?",
+        "optionen": {
+            "A": "OCSP",
+            "B": "CSR",
+            "C": "CA",
+            "D": "CRC"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Das Online Certificate Status Protocol (OCSP) ermöglicht Clients, den Gültigkeitsstatus eines Zertifikats in Echtzeit abzufragen."
+    },
+    {
+        "frage_nr": 97,
+        "frage": "Welche Schwachstellenart adressiert ein BIOS-Update?",
+        "optionen": {
+            "A": "Virtualization",
+            "B": "Firmware",
+            "C": "Application",
+            "D": "Operating system"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Das BIOS (Basic Input/Output System) ist die Firmware der Hauptplatine. Ein Update behebt somit Firmware-Schwachstellen."
+    },
+    {
+        "frage_nr": 98,
+        "frage": "Womit wird die Kritikalität einer Schwachstelle quantitativ gemessen?",
+        "optionen": {
+            "A": "CVE",
+            "B": "CVSS",
+            "C": "CIA",
+            "D": "CERT"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Das Common Vulnerability Scoring System (CVSS) bietet einen standardisierten, quantitativen Score (0-10) zur Bewertung von Schwachstellen."
+    },
+    {
+        "frage_nr": 99,
+        "frage": "Wie überwacht man Workstations/Server auf unbefugte Änderungen und Software?",
+        "optionen": {
+            "A": "Geplante Tasks loggen.",
+            "B": "Ausgehenden Traffic überwachen.",
+            "C": "Signaturbasierten Traffic blockieren.",
+            "D": "Endpoint Management Software installieren."
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Endpoint Management (bzw. EDR) überwacht Prozesse, Dateisysteme und Konfigurationen direkt auf den Endgeräten der Benutzer."
+    },
+    {
+        "frage_nr": 100,
+        "frage": "Was schützt ein VPN zwischen Hauptsitz und Filiale?",
+        "optionen": {
+            "A": "Data in use",
+            "B": "Data in transit (Datenübertragung)",
+            "C": "Geographic restrictions",
+            "D": "Data sovereignty"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Ein VPN verschlüsselt die Datenübertragung zwischen Standorten über öffentliche Netzwerke (Schutz von Data in transit)."
+    },
+    {
+        "frage_nr": 101,
+        "frage": "Scanner meldet unverschlüsseltes Telnet. Ein Nmap-Skript zeigt, dass Telnet Verschlüsselung unterstützt. Fazit?",
+        "optionen": {
+            "A": "False positive",
+            "B": "Rescan erforderlich",
+            "C": "Noise",
+            "D": "Compensating controls existieren"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Obwohl Port 23 (Telnet) offen ist, beweist das Nmap-Skript die Nutzung von Verschlüsselung. Der Scanner-Alarm ist somit ein False Positive."
+    },
+    {
+        "frage_nr": 102,
+        "frage": "Deaktivierte Dienste und Firewall vor einem kritischen Legacy-System. Was ist das?",
+        "optionen": {
+            "A": "Exception",
+            "B": "Segmentation",
+            "C": "Risk transfer",
+            "D": "Compensating controls (Kompensierende Kontrollen)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Da das Legacy-System nicht aktualisiert werden kann, reduzieren Firewalls und deaktivierte Dienste das Risiko (Kompensierende Kontrolle)."
+    },
+    {
+        "frage_nr": 103,
+        "frage": "Womit sichert ein Consultant den Remote-Zugriff auf eine Client-Umgebung?",
+        "optionen": {
+            "A": "EAP",
+            "B": "DHCP",
+            "C": "IPSec",
+            "D": "NAT"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "IPSec arbeitet auf Schicht 3 und ist der Industriestandard für den Aufbau sicherer, verschlüsselter Client-to-Site VPN-Tunnel."
+    },
+    {
+        "frage_nr": 104,
+        "frage": "Was ermöglicht ein einfaches Deployment von Cloud-Ressourcen?",
+        "optionen": {
+            "A": "SaaS",
+            "B": "Infrastructure as code (IaC)",
+            "C": "IoT",
+            "D": "SDN"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Infrastructure as Code (IaC) automatisiert das Deployment von Cloud-Ressourcen durch standardisierte, wiederverwendbare Skripte."
+    },
+    {
+        "frage_nr": 105,
+        "frage": "Anruf des angeblichen CFO für Kreditkartendaten, um Rechnung zu schließen. Welches Konzept?",
+        "optionen": {
+            "A": "Insider threat",
+            "B": "Email phishing",
+            "C": "Social engineering",
+            "D": "Executive whaling"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Social Engineering manipuliert psychologisch (hier durch Ausnutzung von Hierarchien/CFO), um Sicherheitsrichtlinien zu umgehen."
+    },
+    {
+        "frage_nr": 106,
+        "frage": "Was ist der erste Schritt beim Einsatz von DLP gegen Exfiltration sensibler Daten?",
+        "optionen": {
+            "A": "Cloud-Storage blockieren.",
+            "B": "Ausgehende Mail-Anhänge blockieren.",
+            "C": "Klassifizierungen auf Daten anwenden.",
+            "D": "User-Permissions vom Fileserver entfernen."
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Data Loss Prevention erfordert eine vorherige Klassifizierung, um zu wissen, welche Daten kritisch sind und geschützt werden müssen."
+    },
+    {
+        "frage_nr": 107,
+        "frage": "Richtlinie für die Archivierung von Transaktionsdaten über einen bestimmten Zeitraum?",
+        "optionen": {
+            "A": "Compromise",
+            "B": "Retention (Aufbewahrung)",
+            "C": "Analysis",
+            "D": "Transfer",
+            "E": "Inventory"
+        },
+        "korrekte_antwort": "B",
+        "erlaeuterung": "Aufbewahrungsrichtlinien (Retention Policies) definieren, wie lange Daten vorgehalten werden müssen, bevor sie sicher gelöscht werden dürfen."
+    },
+    {
+        "frage_nr": 108,
+        "frage": "Welches Dokument enthält den geschätzten Stundenaufwand für einen Pentest?",
+        "optionen": {
+            "A": "SOW",
+            "B": "BPA",
+            "C": "SLA",
+            "D": "NDA"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Das Statement of Work (SOW) beschreibt vertraglich die genauen Aktivitäten, Deliverables und geschätzten Arbeitsstunden des Projekts."
+    },
+    {
+        "frage_nr": 109,
+        "frage": "Welcher Bedrohungsakteur steckt hinter der Zunahme von Ransomware-as-a-Service?",
+        "optionen": {
+            "A": "Insider threat",
+            "B": "Hacktivist",
+            "C": "Nation-state",
+            "D": "Organized crime (Organisiertes Verbrechen)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Ransomware-Gruppen operieren heute wie hochprofessionelle Unternehmen (Organisiertes Verbrechen) und vertreiben Schadsoftware als Service."
+    },
+    {
+        "frage_nr": 110,
+        "frage": "Wie verhindert man am besten, dass ein Insider Schadcode in die Entwicklung einbringt?",
+        "optionen": {
+            "A": "Code scanning",
+            "B": "Open-source components",
+            "C": "QA testing",
+            "D": "Peer review and approval (Code-Review)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Peer Reviews (Code-Prüfung durch Kollegen) erzwingen das Vier-Augen-Prinzip und verhindern das unbemerkte Einschleusen von Schadcode."
+    },
+    {
+        "frage_nr": 111,
+        "frage": "Was schützt davor, dass Mitarbeiter versehentlich Malware installieren?",
+        "optionen": {
+            "A": "Host-based firewall",
+            "B": "System isolation",
+            "C": "Least privilege",
+            "D": "Application allow list (Freigabeliste)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Eine Application Allow List verbietet standardmäßig alle unbekannten Prozesse. Malware kann somit nicht ausgeführt werden."
+    },
+    {
+        "frage_nr": 112,
+        "frage": "AUP verbietet OS-Änderungen auf Mobilgeräten. Was wird verhindert?",
+        "optionen": {
+            "A": "Cross-site scripting",
+            "B": "Buffer overflow",
+            "C": "Jailbreaking",
+            "D": "Side loading"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Jailbreaking umgeht die Sandbox- und Sicherheitsmechanismen mobiler Betriebssysteme, was Angreifern Root-Rechte ermöglicht."
+    },
+    {
+        "frage_nr": 113,
+        "frage": "Wie stellt man sicher, dass nur Befugte eine sichere Einrichtung betreten? (Wähle zwei)",
+        "optionen": {
+            "A": "Fencing",
+            "B": "Video surveillance",
+            "C": "Badge access",
+            "D": "Access control vestibule (Personenschleuse)",
+            "E": "Sign-in sheet",
+            "F": "Sensor"
+        },
+        "korrekte_antwort": "C, D",
+        "erlaeuterung": "Eine Personenschleuse (Vestibule) in Kombination mit Chipkarten (Badge Access) erzwingt Einzelzutritte und verhindert Tailgating physisch."
+    },
+    {
+        "frage_nr": 114,
+        "frage": "Kundendaten sollen im Netzwerk getrennt vom Hauptnetz gespeichert werden. Was tun?",
+        "optionen": {
+            "A": "Segmentation (Segmentierung)",
+            "B": "Isolation",
+            "C": "Patching",
+            "D": "Encryption"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Netzwerksegmentierung teilt ein Netzwerk in kleinere Zonen auf (z. B. VLANs), um den Datenverkehr zu isolieren und zu kontrollieren."
+    },
+    {
+        "frage_nr": 115,
+        "frage": "Was ist der häufigste Pfad für Datenverlust in einem Air-Gap-Netzwerk?",
+        "optionen": {
+            "A": "Bastion host",
+            "B": "Unsecured Bluetooth",
+            "C": "Unpatched OS",
+            "D": "Removable devices (Wechseldatenträger)"
+        },
+        "korrekte_antwort": "D",
+        "erlaeuterung": "Ohne Netzwerkverbindung können Daten aus einem Air-Gap-Netzwerk nur durch physische Wechseldatenträger (z. B. USB-Sticks) abfließen."
+    },
+    {
+        "frage_nr": 116,
+        "frage": "Malware-Infektion durch den Besuch eines kompromittierten Branchen-Blogs. Angriffsart?",
+        "optionen": {
+            "A": "Impersonation",
+            "B": "Disinformation",
+            "C": "Watering-hole",
+            "D": "Smishing"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Watering-Hole-Angriffe kompromittieren gezielt Webseiten, die das anvisierte Opfer (z.B. Mitarbeiter einer bestimmten Branche) häufig besucht."
+    },
+    {
+        "frage_nr": 117,
+        "frage": "Skalierungsprobleme bei VPN/Internet. Welche Softwarelösung entlastet dies bei voller Tunnelkontrolle?",
+        "optionen": {
+            "A": "SASE-Lösung für Remote-Mitarbeiter",
+            "B": "Load-balanced VPN",
+            "C": "SD-WAN für VPN",
+            "D": "Cloud-VPN-Konzentratoren"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "SASE (Secure Access Service Edge) verlagert VPN-, Proxy- und Sicherheitsfunktionen in die Cloud, was Skalierbarkeit und Performance erhöht."
+    },
+    {
+        "frage_nr": 118,
+        "frage": "Bester Grund für ein Audit in einer Bankenumgebung?",
+        "optionen": {
+            "A": "Regulatory requirement (Regulatorische Anforderung)",
+            "B": "Organizational change",
+            "C": "Self-assessment",
+            "D": "Service-level requirement"
+        },
+        "korrekte_antwort": "A",
+        "erlaeuterung": "Banken unterliegen strengen gesetzlichen und regulatorischen Vorgaben (Compliance), deren Einhaltung durch Audits nachgewiesen werden muss."
+    },
+    {
+        "frage_nr": 119,
+        "frage": "Warum sollten HR-Dateifreigaben dem Least-Privilege-Prinzip folgen?",
+        "optionen": {
+            "A": "Integrity",
+            "B": "Availability",
+            "C": "Confidentiality (Vertraulichkeit)",
+            "D": "Non-repudiation"
+        },
+        "korrekte_antwort": "C",
+        "erlaeuterung": "Least Privilege beschränkt den Zugriff auf HR-Daten streng auf autorisiertes Personal, um die Vertraulichkeit (Confidentiality) zu wahren."
+    },
+    {
+        "frage_nr": 120,
+        "frage": "Wann sollte ein Netzwerkgerät ausgemustert werden? (Wähle zwei)",
+        "optionen": {
+            "A": "In Testumgebung verschoben.",
+            "B": "Verwendet Klartext-Passwörter.",
+            "C": "In isoliertes Segment verschoben.",
+            "D": "Standort im Unternehmen gewechselt.",
+            "E": "Verschlüsselungslevel erfüllt Standards nicht mehr.",
+            "F": "Kann keine autorisierten Updates mehr erhalten."
+        },
+        "korrekte_antwort": "E, F",
+        "erlaeuterung": "Hardware, die keine Sicherheitsupdates mehr erhält (End of Life) oder unsichere Protokolle nutzt, kann nicht gehärtet werden und muss ersetzt werden."
+    }
+]
